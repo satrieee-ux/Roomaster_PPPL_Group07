@@ -34,8 +34,8 @@ Dengan demikian, diharapkan bahwa Roomaster dapat meningkatkan efisiensi adminis
 
 | NRP | Nama | GitHub Profile |
 | --- | --- | --- |
-| 5026241124 | Muhammad Trinanda Thoriq | github.com/MuhammadTrinandaThoriq |
-| 5026241199 | Satya Azka Aqilla | github.com/SatyaAzka |
-| 5026241036 | Anastasia Azzahra Rafif | github.com/azzahrarff |
+| 5026241124 | Muhammad Trinanda Thoriq | https://github.com/MuhammadTrinandaThoriq |
+| 5026241199 | Satya Azka Aqilla | https://github.com/SatyaAzka |
+| 5026241036 | Anastasia Azzahra Rafif | https://github.com/azzahrarff |
 | 5026241065 | Muhammad Satrio Adjie | https://github.com/satrieee-ux |
-| 5026241201 | Thalia Harnum Fathina | github.com/thaliaharnumfathina |
+| 5026241201 | Thalia Harnum Fathina | https://github.com/thaliaharnumfathina |
