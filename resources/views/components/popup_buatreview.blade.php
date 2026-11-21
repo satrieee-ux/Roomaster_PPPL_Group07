@@ -9,6 +9,7 @@
     'submitUrl' => null,
 ])
 
+@php $open = $open || $errors->hasAny(['rating', 'komentar']); @endphp {{-- buka lagi bila ada error --}}
 <x-popup :id="$id" :open="$open" title="Rate & Review">
 
     <x-slot:body>
@@ -43,14 +44,18 @@
             name="rating"
             value="0"
         >
+        <x-form_error name="rating" class="mt-2 text-center" />
 
         <textarea
             name="komentar"
             rows="8"
             maxlength="1000"
             placeholder="Fill your review here..."
-            class="mt-5 h-[222px] w-full resize-none rounded-xl border border-grey-200 bg-white p-3 text-[14px] leading-5 text-grey-800 outline-none placeholder:text-grey-400"
+            class="mt-5 h-[222px] w-full resize-hidden rounded-xl border border-grey-200 bg-white p-3 text-[14px] leading-5 text-grey-800 outline-none placeholder:text-grey-400 {{ $errors->has('komentar') ? 'border-danger-500!' : '' }}"
+            {{ old('komentar') }}
         ></textarea>
+
+        <x-form_error name="komentar" class="mt-1" />
 
         <div class="mt-6 flex gap-4">
 

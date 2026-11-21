@@ -9,7 +9,7 @@ $avatar ??= $mahasiswa?->foto_profil;
 
 <header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 text-white']) }}>
   <div class="flex h-[108px] items-end justify-between px-2 pb-4">
-    <img src="{{ asset($avatar ?: 'images/avatar.jpg') }}" alt="{{ $name }}" class="mb-1.5 ml-4 size-8 rounded-full bg-primary-100 object-cover">
+        <x-avatar :src="$avatar" :name="$name" size="size-8" online class="mb-1.5 ml-4" />
     <div class="flex items-center">
       <a href="{{ url($searchUrl) }}" aria-label="Cari" class="flex h-11 w-12 items-center justify-center"><x-icon name="search" :size="24" /></a>
       <a href="{{ url($chatUrl) }}" aria-label="Chat" class="flex h-11 w-12 items-center justify-center"><x-icon name="message-square" :size="24" /></a>

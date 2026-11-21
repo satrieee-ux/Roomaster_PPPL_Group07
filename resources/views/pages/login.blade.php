@@ -10,14 +10,9 @@
       <x-form_field label="Password" name="password" type="password" placeholder="Masukkan password" />
     </div>
 
-    {{-- Pesan gagal login / isian kosong --}}
-    @if($errors->any())
-      <p class="mt-2 text-[12px] leading-4 font-medium text-danger-500">{{ $errors->first() }}</p>
-    @endif
-
     <div class="mt-5 flex items-center justify-between text-[14px] leading-5">
       <label class="flex items-center gap-2 font-normal text-grey-500">
-        <input type="checkbox" name="remember" value="1" class="size-4 rounded border border-grey-500 accent-primary-800"> Remember me
+        <input type="checkbox" name="remember" value="1" class="size-4 rounded-sm border border-grey-500 accent-primary-800"> Remember me
       </label>
       <a href="#" class="font-semibold text-[#3B9BEB]">Forgot Password ?</a>
     </div>

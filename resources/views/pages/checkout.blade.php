@@ -3,10 +3,18 @@
 
 @section('content')
 @php
-    $checklist = collect($checklist ?? []);
+    // Daftar checklist (tidak ada di DDL, hanya tampilan). Controller boleh menimpanya lewat $checklist.
+    $checklist = collect($checklist ?? [])->whenEmpty(fn () => collect([
+        'Trash bins emptied',
+        'All surfaces wiped down',
+        'Floors swept and vacuumed',
+        'Personal belongings removed',
+        'Lights and electronics turned off',
+    ]));
 
-    // URL POST akan diberikan oleh controller saat backend tersedia.
-    $checkoutSubmitUrl = $checkoutSubmitUrl ?? null;
+    // POST check-out: dari controller, atau dari route bila halaman dikirimi $booking
+    $checkoutSubmitUrl = $checkoutSubmitUrl
+        ?? (isset($booking) ? route('checkout.store', $booking->id) : null);
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">
@@ -55,10 +63,7 @@
                             :label="$item"
                             side="right"
                             :muted="true"
-                            @class([
-                                'h-14',
-                                'border-t border-grey-200' => !$loop->first
-                            ])
+                            :class="$loop->first ? 'h-14' : 'h-14 border-t border-grey-200'"
                         />
                     @empty
                         <p class="py-4 text-[12px] text-grey-500">
@@ -101,7 +106,7 @@
                     name="notes"
                     rows="4"
                     placeholder="Note any existing damages, odors, or missing items here..."
-                    class="h-[120px] w-full resize-none rounded-lg border border-grey-600 bg-white px-4 py-3 text-[14px] leading-5 text-grey-800 outline-none placeholder:text-grey-400"
+                    class="h-[120px] w-full resize-none rounded-lg border border-grey-600 bg-white px-4 py-3 text-[14px] leading-5 text-grey-800 outline-hidden placeholder:text-grey-400"
                 >{{ old('notes') }}</textarea>
             </div>
 

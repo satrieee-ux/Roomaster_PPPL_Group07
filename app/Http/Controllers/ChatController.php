@@ -51,7 +51,7 @@ class ChatController extends Controller
             ->values()
             ->all();
 
-        return view('percakapan', compact('conversations'));
+        return view('pages.percakapan', compact('conversations'));
     }
 
     // UC-15: buka satu percakapan, tandai pesan lawan sudah dibaca
@@ -94,6 +94,6 @@ class ChatController extends Controller
             'avatar' => $other->foto_profil ?? null,
         ];
 
-        return view('pesan', compact('admin', 'date', 'messages'));
+        return view('pages.pesan', compact('admin', 'date', 'messages'));
     }
 }

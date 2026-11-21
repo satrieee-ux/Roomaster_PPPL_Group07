@@ -79,12 +79,15 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
       <section class="{{ $card }}">
         <div class="flex items-center justify-between">
           <h3 class="text-[18px] leading-7 font-medium text-grey-800">Supporting Documents</h3>
-          <a href="{{ url('/booking/'.$id.'/dokumen/terunggah') }}" aria-label="Ubah dokumen" class="text-grey-800"><x-icon name="pencil" :size="20" /></a>
+          <a href="{{ route('booking.dokumen.terunggah', $id) }}" aria-label="Ubah dokumen" class="text-grey-800"><x-icon name="pencil" :size="20" /></a>
         </div>
         <div class="mt-4 flex flex-col gap-4">
           @foreach($booking['documents'] as $doc)
-            <x-file_card :name="$doc['name']" :size="$doc['size']" />
-          @endforeach
+            <x-card_file :nama_berkas="data_get($doc, 'nama_berkas')"
+               :ukuran_berkas="data_get($doc, 'ukuran_berkas')"
+               :status="data_get($doc, 'status', 'draft')"
+               :removable="false" />
+            @endforeach
         </div>
       </section>
     </div>
@@ -98,7 +101,7 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
     </div>
   </main>
 
-  <x-popup_prebook :open="false" />
+    <x-popup_prebook :open="false" :submitUrl="route('booking.submit', $id)" />
   <x-popup_cancelbooking :open="false" :yesUrl="url('/rooms/'.$id)" />
 </div>
 @endsection

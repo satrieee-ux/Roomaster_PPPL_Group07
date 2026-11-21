@@ -14,15 +14,6 @@
       <x-form_field label="Set Password" name="password" type="password" placeholder="Minimal 6 karakter" />
     </div>
 
-    {{-- Daftar kesalahan isian (mis. NRP / username sudah dipakai) --}}
-    @if($errors->any())
-      <ul class="mt-3 flex flex-col gap-1 text-[12px] leading-4 font-medium text-danger-500">
-        @foreach($errors->all() as $pesan)
-          <li>{{ $pesan }}</li>
-        @endforeach
-      </ul>
-    @endif
-
     <x-button type="submit" variant="primary" size="medium" class="mt-6 w-full">Sign Up</x-button>
 
     <x-social_login myits="Masuk dengan MyITS" />

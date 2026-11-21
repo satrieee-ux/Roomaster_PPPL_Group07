@@ -13,7 +13,11 @@
      (field Time, bar Continue) dan menyembunyikan elemen [data-time-hide] (kotak info, bar Check Availability).
 
      Input yang dikirim ke server:
-       nama_kegiatan, tujuan, departemen_penyelenggara, tanggal_pakai, waktu_mulai, waktu_selesai --}}
+       nama_kegiatan, tujuan, departemen_penyelenggara, tanggal_pakai, waktu_mulai, waktu_selesai
+
+     + Satrio: pesan error validasi tampil di bawah tiap kolom (x-form_error), kolom berbingkai merah,
+       isian dipertahankan lewat old(). Form diberi novalidate supaya pesan server yang tampil,
+       bukan balon bawaan browser. --}}
 @props([
   'id_ruangan' => null,               // data_ruangan.id (dipakai di URL)
   'kode_ruangan' => null,             // data_ruangan.kode_ruangan (ditampilkan di popup jam)
@@ -27,6 +31,14 @@
   'jam_terpakai' => [],               // jam (8-19) terpakai dari server: peminjaman 'disetujui'/'berlangsung' di ruangan + tanggal ini
 ])
 @php
+// Setelah validasi gagal, isian terakhir user (old) menang atas data draft
+$nama_kegiatan            = old('nama_kegiatan', $nama_kegiatan);
+$tujuan                   = old('tujuan', $tujuan);
+$departemen_penyelenggara = old('departemen_penyelenggara', $departemen_penyelenggara);
+$tanggal_pakai            = old('tanggal_pakai', $tanggal_pakai);
+$waktu_mulai              = old('waktu_mulai', $waktu_mulai);
+$waktu_selesai            = old('waktu_selesai', $waktu_selesai);
+
 // Kolom TIME bisa berisi "15:00:00"; ambil 5 karakter pertama saja ("15:00")
 $mulai = $waktu_mulai ? substr($waktu_mulai, 0, 5) : null;
 $selesai = $waktu_selesai ? substr($waktu_selesai, 0, 5) : null;
@@ -53,8 +65,9 @@ if ($mulai && $selesai) {
 }
 
 // --- Kelas Tailwind yang dipakai berulang ---
-$kelasField = 'rounded-xl border border-grey-200 bg-grey-50 px-3 shadow-[0_1px_2px_rgba(20,26,40,0.04)] outline-none focus:border-primary-500';
+$kelasField = 'rounded-xl border border-grey-200 bg-grey-50 px-3 shadow-[0_1px_2px_rgba(20,26,40,0.04)] outline-hidden focus:border-primary-500';
 $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
+$merah = 'border-danger-500!'; // bingkai merah saat kolom punya error
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">
@@ -64,7 +77,7 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
        Controller menyimpan baris peminjaman berstatus 'draft', lalu redirect ke GET /booking/{id}/dokumen.
        Halaman pilih jam terpisah tidak dipakai.
        TODO: ganti ke route('booking.store', $id_ruangan) setelah route POST /booking/{id} dibuat di routes/web.php. --}}
-  <form id="booking-form" method="POST" class="flex flex-1 flex-col"
+  <form id="booking-form" method="POST" class="flex flex-1 flex-col" novalidate
         action="{{ url('/booking/'.$id_ruangan) }}">
     @csrf
     <main class="flex flex-1 flex-col px-6 pb-5 pt-[22px]">
@@ -76,24 +89,30 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
         <label for="nama_kegiatan" class="{{ $kelasLabel }}">Activity Name</label>
         <input id="nama_kegiatan" name="nama_kegiatan" type="text" maxlength="150" required
                value="{{ $nama_kegiatan }}" placeholder="e.g. Weekly Meeting"
-               class="h-[42px] w-full {{ $kelasField }} text-[14px] leading-5 font-normal text-grey-800 placeholder:text-grey-500">
+               aria-invalid="{{ $errors->has('nama_kegiatan') ? 'true' : 'false' }}"
+               class="h-[42px] w-full {{ $kelasField }} {{ $errors->has('nama_kegiatan') ? $merah : '' }} text-[14px] leading-5 font-normal text-grey-800 placeholder:text-grey-500">
+        <x-form_error name="nama_kegiatan" class="-mt-1" />
 
         {{-- Tujuan → peminjaman.tujuan --}}
         <label for="tujuan" class="{{ $kelasLabel }}">Purpose</label>
         <textarea id="tujuan" name="tujuan" required placeholder="Briefly describe the purpose of the booking"
-                  class="h-[106px] w-full resize-none {{ $kelasField }} py-3 text-[14px] leading-5 font-normal text-grey-800 placeholder:text-grey-500">{{ $tujuan }}</textarea>
+                  aria-invalid="{{ $errors->has('tujuan') ? 'true' : 'false' }}"
+                  class="h-[106px] w-full resize-none {{ $kelasField }} {{ $errors->has('tujuan') ? $merah : '' }} py-3 text-[14px] leading-5 font-normal text-grey-800 placeholder:text-grey-500">{{ $tujuan }}</textarea>
+        <x-form_error name="tujuan" class="-mt-1" />
 
         {{-- Departemen → peminjaman.departemen_penyelenggara --}}
         <span class="{{ $kelasLabel }}">Department</span>
         <x-dropdown_departemen :value="$departemen_penyelenggara" />
+        <x-form_error name="departemen_penyelenggara" class="-mt-1" />
 
         {{-- Tanggal → peminjaman.tanggal_pakai. Tombol membuka popup kalender. --}}
         <span class="{{ $kelasLabel }}">Date</span>
-        <button type="button" data-date-open data-popup-open="popup-tanggal" class="flex h-[46px] items-center gap-3 text-left {{ $kelasField }}">
+        <button type="button" data-date-open data-popup-open="popup-tanggal" class="flex h-[46px] items-center gap-3 text-left {{ $kelasField }} {{ $errors->has('tanggal_pakai') ? $merah : '' }}">
           <x-icon name="calendar" :size="24" class="shrink-0 text-grey-500" />
           <span data-date-text @class(['text-[16px] leading-6 font-normal', 'text-grey-800' => $hasDate, 'text-grey-500' => ! $hasDate])>{{ $tanggalPendek ?? 'DD/MM/YY' }}</span>
         </button>
         <input type="hidden" name="tanggal_pakai" value="{{ $tanggalIso }}">
+        <x-form_error name="tanggal_pakai" class="-mt-1" />
 
         {{-- Jam → peminjaman.waktu_mulai dan peminjaman.waktu_selesai.
              Popup jam langsung mengisi kedua input hidden ini (contoh 15:00 dan 17:00). --}}
@@ -106,6 +125,8 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
           <x-icon name="clock" :size="24" class="shrink-0 text-grey-500" />
           <span data-time-label class="text-[16px] leading-6 font-normal text-grey-800">{{ $teksJam }}</span>
         </button>
+        <x-form_error name="waktu_mulai" data-time-show :class="'-mt-1 '.($showTime ? '' : 'hidden')" />
+        <x-form_error name="waktu_selesai" data-time-show :class="'-mt-1 '.($showTime ? '' : 'hidden')" />
       </div>
 
       {{-- Kotak info ketersediaan: tampil sebelum jam dipilih, disembunyikan popup jam setelah Apply --}}

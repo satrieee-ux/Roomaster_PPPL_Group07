@@ -33,11 +33,7 @@
                 aria-pressed="{{ $favorite ? 'true' : 'false' }}"
                 class="flex size-10 shrink-0 items-center justify-center rounded-full bg-grey-50 text-primary-500"
             >
-                <x-icon
-                    name="heart"
-                    :size="20"
-                    @class(['fill-current' => $favorite])
-                />
+                <x-icon name="heart" :size="20" :class="$favorite ? 'fill-current' : ''" />
             </button>
         </form>
     @else
@@ -47,11 +43,7 @@
             aria-label="Favorit belum tersedia"
             class="flex size-10 shrink-0 items-center justify-center rounded-full bg-grey-50 text-primary-500 opacity-50"
         >
-            <x-icon
-                name="heart"
-                :size="20"
-                @class(['fill-current' => $favorite])
-            />
+            <x-icon name="heart" :size="20" :class="$favorite ? 'fill-current' : ''" />
         </button>
     @endif
 

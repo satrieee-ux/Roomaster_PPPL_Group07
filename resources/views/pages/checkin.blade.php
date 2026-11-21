@@ -79,7 +79,7 @@ $jam = substr($booking->waktu_mulai, 0, 5).' - '.substr($booking->waktu_selesai,
     <div class="flex flex-col gap-2">
       <label for="notes" class="text-[14px] leading-5 font-semibold text-grey-800">Additional Notes</label>
       <textarea id="notes" rows="4" placeholder="Note any existing damages, odors, or missing items here..."
-        class="h-[120px] w-full resize-none rounded-lg border border-grey-600 bg-white px-4 py-3 text-[14px] leading-5 font-normal text-grey-800 outline-none placeholder:text-grey-400"></textarea>
+        class="h-[120px] w-full resize-none rounded-lg border border-grey-600 bg-white px-4 py-3 text-[14px] leading-5 font-normal text-grey-800 outline-hidden placeholder:text-grey-400"></textarea>
     </div>
   </main>
 
@@ -98,9 +98,8 @@ $jam = substr($booking->waktu_mulai, 0, 5).' - '.substr($booking->waktu_selesai,
     </div>
   </div>
 
-  {{-- Form check-in: hanya @csrf, id booking ada di URL. Dikirim oleh tombol Proceed di popup.
-       TODO: ganti ke route('checkin.store', $booking->id) setelah route POST /checkin/{id} dibuat. --}}
-  <form id="form-checkin" method="POST" action="{{ url('/checkin/'.$booking->id) }}" class="hidden">
+  {{-- Form check-in: hanya @csrf, id booking ada di URL. Dikirim oleh tombol Proceed di popup.--}}
+  <form id="form-checkin" method="POST" action="{{ route('checkin.store', $booking->id) }}" class="hidden">
     @csrf
   </form>
 

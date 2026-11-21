@@ -39,9 +39,7 @@ $heading ??= 'Welcome Back, '.$name.'!';
 @if($variant === 'home')
   <header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 pb-[26px] text-white']) }}>
     <div class="flex h-[108px] items-end justify-between px-2 pb-4">
-      <span class="flex px-4">
-        <img src="{{ asset($avatar ?: 'images/avatar.jpg') }}" alt="{{ $name }}" class="size-8 rounded-full bg-primary-100 object-cover">
-      </span>
+        <x-avatar :src="$avatar" :name="$name" size="size-8" online class="mx-4 mb-1.5" />
       <div class="flex">
         <a href="{{ url($chatUrl) }}" aria-label="Chat" class="flex h-11 w-12 items-center justify-center"><x-icon name="message-square" :size="24" /></a>
         <a href="{{ url($notifUrl) }}" aria-label="Notifikasi" class="flex h-11 w-12 items-center justify-center"><x-icon name="bell" :size="24" /></a>

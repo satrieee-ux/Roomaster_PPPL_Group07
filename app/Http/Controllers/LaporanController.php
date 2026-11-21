@@ -17,6 +17,12 @@ class LaporanController extends Controller
         'jaringan' => 'Network', 'kebersihan' => 'Cleanliness', 'lainnya' => 'Others',
     ];
 
+    // ENUM kategori_kerusakan => nama ikon (harus ada di components/icon.blade.php)
+    private const IKON = [
+        'ac' => 'air-vent', 'proyektor_av' => 'projector', 'listrik' => 'lightbulb',
+        'furnitur' => 'armchair', 'jaringan' => 'wifi', 'kebersihan' => 'alert-circle', 'lainnya' => 'alert-circle',
+    ];
+
     // ASSUMPTION: model auth profil_pengguna punya kolom id_mahasiswa.
     // Kalau login hanya menyimpan id di session, ganti dengan (int) session('id_mahasiswa').
     private function mahasiswaId(): int
@@ -24,13 +30,14 @@ class LaporanController extends Controller
         return (int) Auth::user()->id_mahasiswa;
     }
 
-    // UC-18: halaman scan QR (view Qreporting, casing harus sama dengan nama file)
+    // UC-18 (Tasia): Katalog menaruh ambilDataRuangan(QR) di RuanganController. Sengaja dipertahankan di
+    // LaporanController (scan() dan create()) karena langsung terkait alur laporan. Dicatat di Satrio, 21 Nov 2026.
     public function scan()
     {
         // Simulasi hasil scan: pakai kode ruangan pertama di data dummy
         $kodeDemo = DB::table('data_ruangan')->orderBy('id')->value('kode_ruangan');
 
-        return view('Qreporting', compact('kodeDemo'));
+        return view('pages.Qreporting', compact('kodeDemo'));
     }
 
     // UC-19: form laporan. ?kode=SI-4202 (hasil scan) | ?draft=ID (lanjut draft)
@@ -60,13 +67,13 @@ class LaporanController extends Controller
 
         // ASSUMPTION: nama ikon harus ada di icon.blade.php
         $categories = [
-            ['value' => 'ac',           'label' => 'Air Conditioning', 'icon' => 'snowflake'],
+            ['value' => 'ac',           'label' => 'Air Conditioning', 'icon' => 'air-vent'],
             ['value' => 'proyektor_av', 'label' => 'Projector',        'icon' => 'projector'],
             ['value' => 'listrik',      'label' => 'Lighting',         'icon' => 'lightbulb'],
             ['value' => 'furnitur',     'label' => 'Desk/Seating',     'icon' => 'armchair'],
         ];
 
-        return view('laporkerusakan', compact('location', 'categories', 'draft'));
+        return view('pages.laporkerusakan', compact('location', 'categories', 'draft'));
     }
 
     // UC-19: simpan laporan. aksi=draft -> status draft, aksi=kirim -> status pending
@@ -142,7 +149,7 @@ class LaporanController extends Controller
 
         $kode = str_pad($laporan->id, 6, '0', STR_PAD_LEFT);   // guide 3.1
 
-        return view('laporkerusakan_submitted', compact('laporan', 'kode'));
+        return view('pages.laporkerusakan_submitted', compact('laporan', 'kode'));
     }
 
     // UC-20: ringkasan satu laporan
@@ -173,11 +180,12 @@ class LaporanController extends Controller
             'location'    => $l->lokasi,
             'date'        => Carbon::parse($l->tanggal_lapor)->translatedFormat('j F Y'),
             'category'    => self::KATEGORI[$l->kategori_kerusakan] ?? 'Others',   // SATU chip
+            'category_icon' => self::IKON[$l->kategori_kerusakan] ?? 'alert-circle',
             'description' => $l->deskripsi_masalah,
             'evidence'    => $evidence,
         ];
 
-        return view('ringkasanlaporan', compact('report'));
+        return view('pages.ringkasanlaporan', compact('report'));
     }
 
     // UC-20: riwayat laporan milik user. ?filter=pending|diproses|selesai
@@ -201,6 +209,6 @@ class LaporanController extends Controller
 
         $active = ['pending' => 'Pending', 'diproses' => 'In Progress', 'selesai' => 'Resolved'][$filter] ?? 'All';
 
-        return view('riwayatlaporan', compact('reports', 'active'));
+        return view('pages.riwayatlaporan', compact('reports', 'active'));
     }
 }

@@ -26,14 +26,15 @@
     <section class="flex flex-col gap-3 px-6">
       <div class="flex h-6 items-center justify-between">
         <h2 class="text-[18px] leading-7 font-semibold text-primary-800">Upcoming Bookings</h2>
-        <x-button href="/bookings" variant="soft" size="tiny" iconRight="chevron-right" class="shrink-0 whitespace-nowrap">See All</x-button>
+        <x-button href="{{ route('bookings') }}" variant="soft" size="tiny" iconRight="chevron-right" class="shrink-0 whitespace-nowrap">See All</x-button>
       </div>
       @if($upcoming)
         {{-- card_booking milik Thalia: Check-In hanya muncul bila status upcoming --}}
         <x-card_booking
           :title="$upcoming['judul']" :date="$upcoming['tanggal']" :time="$upcoming['waktu']"
           :department="$upcoming['lokasi']" :image="$upcoming['foto']" :status="$upcoming['status']"
-          :href="url('/bookings/'.$upcoming['id'])" :primaryHref="url('/checkin/'.$upcoming['id'])" />
+          :is-upcoming="$upcoming['isUpcoming']"
+          :href="route('bookings.summary', $upcoming['id'])" :primaryHref="route('checkin', $upcoming['id'])" />
       @else
         <p class="text-[14px] leading-5 text-grey-500">No upcoming bookings.</p>
       @endif
@@ -56,8 +57,8 @@
 
     {{-- Recently Booked: card kecil 200px, scroll horizontal --}}
     <section class="flex flex-col gap-3">
-      <div class="flex h-6 items-center justify-between px-6">
-        <h2 class="text-[16px] leading-6 font-semibold text-primary-800">Recently Booked</h2>
+    <div class="flex h-7 items-center justify-between px-6">
+        <h2 class="text-[18px] leading-7 font-semibold text-primary-800">Recently Booked</h2>
         <x-button href="/rooms" variant="soft" size="tiny" iconRight="chevron-right" class="shrink-0 whitespace-nowrap">See All</x-button>
       </div>
       @if($terakhir->isEmpty())

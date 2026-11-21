@@ -11,19 +11,16 @@
   <form action="{{ url('/auth/myits/callback') }}" method="POST" class="mt-3 flex flex-col">
     @csrf
     <input type="hidden" name="email" value="{{ $email }}">
-    <x-form_field name="password" type="password" placeholder="Password MyITS" />
-    @error('password')
-      <p class="mt-2 text-[12px] leading-4 font-medium text-danger-500">{{ $message }}</p>
-    @enderror
+    <x-form_field name="password" type="password" :toggle="false" placeholder="Password MyITS" />
 
     <div class="mt-3 flex items-center justify-between text-[14px] leading-5">
       <a href="#" class="font-semibold text-[#3B9BEB]">Forgot Password ?</a>
       <label class="flex items-center gap-2 font-normal text-grey-500">
-        <input type="checkbox" name="remember" value="1" class="size-4 rounded border border-grey-500 accent-primary-800"> Remember me
+        <input type="checkbox" name="remember" value="1" class="size-4 rounded-sm border border-grey-500 accent-primary-800"> Remember me
       </label>
     </div>
 
-    <x-button type="submit" variant="primary" size="medium" class="mt-5 w-full !bg-[#0A91FF]">Log In</x-button>
+    <x-button type="submit" variant="primary" size="medium" class="mt-5 w-full bg-[#0A91FF]!">Log In</x-button>
   </form>
 </x-myits_card>
 @endsection

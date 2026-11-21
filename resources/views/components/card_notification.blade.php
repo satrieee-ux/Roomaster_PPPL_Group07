@@ -19,7 +19,7 @@ $map = [
 
   <div class="flex min-w-0 flex-1 flex-col">
     <div class="flex items-center justify-between gap-2">
-      <h3 class="flex min-w-0 items-center gap-2 text-[16px] leading-6 font-semibold text-grey-800">
+      <h3 class="flex min-w-0 items-center gap-2 text-[14px] leading-5 font-semibold text-grey-800">
         <span class="truncate">{{ $title }}</span>
         @unless($read)<span class="size-2 shrink-0 rounded-full bg-secondary-500" aria-label="Belum dibaca"></span>@endunless
       </h3>

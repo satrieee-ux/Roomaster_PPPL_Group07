@@ -7,11 +7,8 @@
 
   <form action="{{ url('/auth/myits/password') }}" method="GET" class="mt-3 flex flex-col">
     <x-form_field label="Email ITS" name="email" type="email" :value="old('email')" placeholder="nrp@student.its.ac.id" />
-    @error('email')
-      <p class="mt-2 text-[12px] leading-4 font-medium text-danger-500">{{ $message }}</p>
-    @enderror
     <a href="#" class="mt-3 text-[14px] leading-5 font-semibold text-[#3B9BEB]">Forgot Password ?</a>
-    <x-button type="submit" variant="primary" size="medium" class="mt-5 w-full !bg-[#0A91FF]">Next</x-button>
+    <x-button type="submit" variant="primary" size="medium" class="mt-5 w-full bg-[#0A91FF]!">Next</x-button>
 
     <x-social_login />
 

@@ -101,7 +101,7 @@
     </span>
 @else
     <div {{ $attributes->class([
-        'flex items-center justify-between rounded-xl px-3 py-3',
+        'flex items-center justify-between rounded-xl px-3 py-3.5',
         $cls
     ]) }}>
         <div class="flex items-center gap-2 text-[14px] leading-5 font-semibold">

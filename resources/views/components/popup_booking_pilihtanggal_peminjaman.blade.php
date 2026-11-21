@@ -1,5 +1,5 @@
 {{-- Sheet "Choose Date" untuk form booking. Dibuka lewat data-popup-open="popup-tanggal".
-     Contoh: <x-popup_booking_pilihtanggal :value="$peminjaman->tanggal_pakai" />
+     Contoh: <x-popup_booking_pilihtanggal_peminjaman :value="$peminjaman->tanggal_pakai" />
      value = tanggal terpilih berformat Y-m-d (kolom peminjaman.tanggal_pakai), boleh null.
      Tombol Apply:
        - mengisi input[name=tanggal_pakai] di #booking-form (format Y-m-d, contoh 2026-05-20)

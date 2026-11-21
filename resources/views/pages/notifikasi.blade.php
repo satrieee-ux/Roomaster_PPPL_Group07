@@ -13,7 +13,7 @@
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">
-  <x-header_topappbar title="Notifications" :back="url('/menu-utama')" />
+  <x-header_topappbar title="Notifications" :back="route('home')" />
 
   <main class="flex flex-1 flex-col pb-5 pt-5">
     <x-tabs variant="pill" :items="$tabs" :active="$active" />

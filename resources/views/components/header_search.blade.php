@@ -4,13 +4,13 @@
 @props(['back' => null, 'placeholder' => 'Search', 'filters' => [], 'filterId' => 'popup-filter', 'dateId' => 'popup-datepicker'])
 @php $back = $back ?? 'javascript:history.back()'; @endphp
 
-<header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 pb-5 pt-[66px] text-white']) }}>
+<header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 pb-6 pt-[66px] text-white']) }}>
   <div class="flex items-center gap-3 px-6">
     @if(count($filters) === 0)
       <form action="{{ url('/rooms/search/name') }}" method="GET" class="flex h-12 min-w-0 flex-1 items-center gap-3 rounded-xl bg-grey-100 px-3 text-grey-500">
         <a href="{{ $back }}" aria-label="Kembali" class="shrink-0"><x-icon name="arrow-left" :size="24" /></a>
         <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ $placeholder }}"
-               class="min-w-0 flex-1 bg-transparent text-[16px] leading-6 font-normal text-grey-800 outline-none placeholder:text-grey-500">
+               class="min-w-0 flex-1 bg-transparent text-[16px] leading-6 font-normal text-grey-800 outline-hidden placeholder:text-grey-500">
       </form>
     @else
       <div class="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-grey-100 p-3">
