@@ -1,12 +1,16 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
 {{-- Form Booking langkah 1 (Details). Nama input mengikuti kolom tabel peminjaman.
      Contoh:
        <x-booking_form :id_ruangan="$ruangan->id" :kode_ruangan="$ruangan->kode_ruangan" state="date"
-                       :tanggal_pakai="$peminjaman->tanggal_pakai" :nama_kegiatan="$peminjaman->nama_kegiatan" />
+                       :tanggal_pakai="$tanggal_pakai" :jam_terpakai="$jamTerpakai" :nama_kegiatan="$peminjaman?->nama_kegiatan" />
 
      state (tahap tampilan form):
        empty = tanggal belum dipilih
        date  = tanggal sudah dipilih, jam belum
-       time  = tanggal dan jam sudah dipilih (tombol Continue muncul)
+       time  = tanggal dan jam sudah dipilih (tombol Continue muncul).
+               Tampilan "time" juga otomatis dipakai jika waktu_mulai dan waktu_selesai sudah terisi.
+     Setelah Apply di popup jam, user TETAP di halaman ini: popup menampilkan elemen [data-time-show]
+     (field Time, bar Continue) dan menyembunyikan elemen [data-time-hide] (kotak info, bar Check Availability).
 
      Input yang dikirim ke server:
        nama_kegiatan, tujuan, departemen_penyelenggara, tanggal_pakai, waktu_mulai, waktu_selesai --}}
@@ -20,9 +24,15 @@
   'tanggal_pakai' => null,            // peminjaman.tanggal_pakai (DATE, format Y-m-d)
   'waktu_mulai' => null,              // peminjaman.waktu_mulai (TIME, misal "15:00" atau "15:00:00")
   'waktu_selesai' => null,            // peminjaman.waktu_selesai (TIME)
+  'jam_terpakai' => [],               // jam (8-19) terpakai dari server: peminjaman 'disetujui'/'berlangsung' di ruangan + tanggal ini
 ])
 @php
-$showTime = $state === 'time';
+// Kolom TIME bisa berisi "15:00:00"; ambil 5 karakter pertama saja ("15:00")
+$mulai = $waktu_mulai ? substr($waktu_mulai, 0, 5) : null;
+$selesai = $waktu_selesai ? substr($waktu_selesai, 0, 5) : null;
+
+// Tampilan "time" dipakai jika state = time ATAU jam sudah terisi (misal kembali dari halaman dokumen)
+$showTime = $state === 'time' || ($mulai && $selesai);
 
 // --- Tanggal ---
 // Ubah tanggal_pakai menjadi objek Carbon supaya mudah diformat
@@ -33,12 +43,8 @@ $tanggalPendek = $tanggal ? $tanggal->format('d/m/y') : null;  // untuk tombol t
 $tanggalPanjang = $tanggal ? $tanggal->format('j F Y') : '—';  // untuk judul popup jam, contoh 20 May 2026
 
 // --- Jam ---
-// Kolom TIME bisa berisi "15:00:00"; ambil 5 karakter pertama saja ("15:00")
-$mulai = $waktu_mulai ? substr($waktu_mulai, 0, 5) : null;
-$selesai = $waktu_selesai ? substr($waktu_selesai, 0, 5) : null;
-
-// Teks jam untuk ditampilkan, contoh "15:00 - 17:00"
-$teksJam = ($mulai && $selesai) ? $mulai.' - '.$selesai : null;
+// Teks jam untuk ditampilkan, contoh "15:00 - 17:00 WIB"
+$teksJam = ($mulai && $selesai) ? $mulai.' - '.$selesai.' WIB' : null;
 
 // Jam-jam yang sudah tercentang di popup jam, contoh 15:00-17:00 → [15, 16]
 $jamTerpilih = [];
@@ -52,11 +58,12 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">
-  <x-header_topappbar title="Booking" endIcon="x" :endUrl="url('/rooms/'.$id_ruangan)" />
+  <x-header_topappbar title="Booking" endIcon="x" :endUrl="route('rooms.detail', $id_ruangan)" />
 
-  {{-- Tahap empty/date: form dikirim ke halaman pilih jam. Tahap time: ke halaman dokumen. --}}
+  {{-- Form selalu dikirim ke halaman dokumen (tombol Continue). Halaman pilih jam terpisah tidak dipakai.
+       TODO: ganti ke route('booking.dokumen', $id_ruangan) setelah route tersebut dibuat di routes/web.php. --}}
   <form id="booking-form" method="GET" class="flex flex-1 flex-col"
-        action="{{ $showTime ? url('/booking/'.$id_ruangan.'/dokumen') : url('/booking/'.$id_ruangan.'/waktu') }}">
+        action="{{ url('/booking/'.$id_ruangan.'/dokumen') }}">
     <main class="flex flex-1 flex-col px-6 pb-5 pt-[22px]">
       <h2 class="text-[24px] leading-7 font-extrabold text-grey-800">Details</h2>
       <x-booking_stepper :step="1" class="mt-4" />
@@ -86,73 +93,45 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
         <input type="hidden" name="tanggal_pakai" value="{{ $tanggalIso }}">
 
         {{-- Jam → peminjaman.waktu_mulai dan peminjaman.waktu_selesai.
-             Input "time" hanya untuk TAMPILAN: popup jam menulis teks "15:00 - 17:00" ke sini.
-             Input ini disabled, jadi TIDAK ikut terkirim; yang terkirim dua input hidden di bawahnya. --}}
-        <input type="hidden" name="time" value="{{ $teksJam }}" disabled data-time-text>
+             Popup jam langsung mengisi kedua input hidden ini (contoh 15:00 dan 17:00). --}}
         <input type="hidden" name="waktu_mulai" value="{{ $mulai }}">
         <input type="hidden" name="waktu_selesai" value="{{ $selesai }}">
 
-        @if($showTime)
-          <span class="{{ $kelasLabel }}">Time</span>
-          <button type="button" data-popup-open="popup-waktu" class="flex h-[46px] items-center gap-3 text-left {{ $kelasField }}">
-            <x-icon name="clock" :size="24" class="shrink-0 text-grey-500" />
-            <span data-time-label class="text-[16px] leading-6 font-normal text-grey-800">{{ $teksJam }}</span>
-          </button>
-        @endif
+        {{-- Field Time: selalu dirender, disembunyikan sampai jam dipilih (popup jam yang menampilkannya) --}}
+        <span data-time-show @class([$kelasLabel, 'hidden' => ! $showTime])>Time</span>
+        <button type="button" data-time-show data-popup-open="popup-waktu" @class(['flex h-[46px] items-center gap-3 text-left '.$kelasField, 'hidden' => ! $showTime])>
+          <x-icon name="clock" :size="24" class="shrink-0 text-grey-500" />
+          <span data-time-label class="text-[16px] leading-6 font-normal text-grey-800">{{ $teksJam }}</span>
+        </button>
       </div>
 
-      {{-- Kotak info ketersediaan: hanya tampil sebelum jam dipilih --}}
-      @unless($showTime)
-        <div class="mt-8 flex gap-3 rounded-xl border border-grey-300 bg-grey-50 p-4 shadow-card">
-          <x-icon name="info" :size="20" class="mt-0.5 shrink-0 text-warning-500" />
-          <div class="flex flex-col">
-            <span class="text-[16px] leading-6 font-medium text-grey-800">Availability Status</span>
-            <span class="text-[14px] leading-5 font-normal text-grey-600">Please fill in the date above to</span>
-            <button type="button" data-avail-link class="w-fit text-left text-[14px] leading-5 font-semibold text-primary-500 underline">check room availability.</button>
-          </div>
+      {{-- Kotak info ketersediaan: tampil sebelum jam dipilih, disembunyikan popup jam setelah Apply --}}
+      <div data-time-hide @class(['mt-8 flex gap-3 rounded-xl border border-grey-300 bg-grey-50 p-4 shadow-card', 'hidden' => $showTime])>
+        <x-icon name="info" :size="20" class="mt-0.5 shrink-0 text-warning-500" />
+        <div class="flex flex-col">
+          <span class="text-[16px] leading-6 font-medium text-grey-800">Availability Status</span>
+          <span class="text-[14px] leading-5 font-normal text-grey-600">Please fill in the date above to</span>
+          <button type="button" data-avail-link class="w-fit text-left text-[14px] leading-5 font-semibold text-primary-500 underline">check room availability.</button>
         </div>
-      @endunless
+      </div>
     </main>
 
-    {{-- Bar bawah: Continue (tahap time) atau Cancel + Check Availability (tahap lain) --}}
-    @if($showTime)
-      <x-component_bookdocbar :active="true" :submit="true" />
-    @else
-      <x-component_bookdetailbar :active="$hasDate" />
-    @endif
+    {{-- Bar bawah: kedua bar selalu dirender, salah satu disembunyikan.
+         Sebelum jam dipilih: Cancel + Check Availability. Sesudah jam dipilih: Continue (kirim form ke halaman dokumen). --}}
+    <x-component_bookdetailbar :active="$hasDate" data-time-hide :class="$showTime ? 'hidden' : ''" />
+    <x-component_bookdocbar :active="true" :submit="true" data-time-show :class="$showTime ? '' : 'hidden'" />
   </form>
 
   {{-- Popup pendukung form --}}
   <x-popup_booking_pilihtanggal :value="$tanggalIso" />
-  <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :selected="$jamTerpilih" :submit="! $showTime" />
-  <x-popup_cancelbooking :open="false" :yesUrl="url('/rooms/'.$id_ruangan)" />
+  <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :booked="$jam_terpakai" :selected="$jamTerpilih" />
+  <x-popup_cancelbooking :open="false" :yesUrl="route('rooms.detail', $id_ruangan)" />
 </div>
 
 <script>
   (function () {
     var f = document.getElementById('booking-form');
     if (!f) return;
-
-    // Pecah teks jam "15:00 - 17:00" menjadi waktu_mulai = 15:00 dan waktu_selesai = 17:00
-    function isiWaktu() {
-      var teks = f.querySelector('[data-time-text]').value;
-      var bagian = teks.split(' - ');
-      if (bagian.length !== 2) return;
-      f.querySelector('input[name=waktu_mulai]').value = bagian[0];
-      f.querySelector('input[name=waktu_selesai]').value = bagian[1];
-    }
-
-    // Kasus 1: form dikirim lewat tombol Continue (memicu event "submit")
-    f.addEventListener('submit', isiWaktu);
-
-    // Kasus 2: popup jam memanggil f.submit() secara langsung, yang TIDAK memicu event "submit".
-    // Jadi fungsi submit form ini dibungkus: isi waktu dulu, baru kirim.
-    // (Sementara saja; bisa dihapus setelah popup jam langsung mengisi waktu_mulai/waktu_selesai.)
-    var submitAsli = f.submit;
-    f.submit = function () {
-      isiWaktu();
-      submitAsli.call(f);
-    };
 
     // Link "check room availability.": buka popup jam jika tanggal sudah ada, kalau belum buka kalender
     var link = f.querySelector('[data-avail-link]');
