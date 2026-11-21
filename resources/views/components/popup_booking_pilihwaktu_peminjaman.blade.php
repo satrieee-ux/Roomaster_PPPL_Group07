@@ -5,9 +5,12 @@
      booked   = array jam (8-19) yang sudah terpakai, DIKIRIM DARI SERVER (peminjaman berstatus
                 'disetujui' atau 'berlangsung' pada ruangan dan tanggal itu). Jam ini tampil oranye dan tidak bisa dipilih.
      selected = array jam yang sudah tercentang, contoh [15, 16]
-     submit   = true → setelah Apply, form #booking-form langsung dikirim.
-     Tombol Apply mengisi input[name=waktu_mulai] dan input[name=waktu_selesai] di form (contoh 15:00 dan 17:00). --}}
-@props(['id' => 'popup-waktu', 'room' => '—', 'dateLabel' => '—', 'booked' => [], 'selected' => [], 'submit' => false, 'open' => false])
+     Tombol Apply (user tetap di halaman form, form TIDAK dikirim):
+       - mengisi input[name=waktu_mulai] dan input[name=waktu_selesai] di form (contoh 15:00 dan 17:00)
+       - menampilkan elemen [data-time-show] dan menyembunyikan elemen [data-time-hide] di form
+     TODO: jika tanggal diganti setelah jam dipilih, jam perlu di-reset dan slot terpakai diambil ulang
+           (dikerjakan nanti bersama endpoint Satrio saat Check Availability diklik). --}}
+@props(['id' => 'popup-waktu', 'room' => '—', 'dateLabel' => '—', 'booked' => [], 'selected' => [], 'open' => false])
 @php
 $groups = [
   ['Morning',   'sunrise', [8, 9, 10, 11]],
@@ -28,7 +31,7 @@ $groups = [
 @endonce
 
 <x-popup :id="$id" :open="$open" :sheet="true">
-  <div id="{{ $id }}-body" data-submit="{{ $submit ? 1 : 0 }}" class="max-h-[calc(100dvh-80px)] overflow-y-auto overflow-x-hidden pb-2 no-scrollbar">
+  <div id="{{ $id }}-body" class="max-h-[calc(100dvh-80px)] overflow-y-auto overflow-x-hidden pb-2 no-scrollbar">
     <div class="relative flex items-center justify-center border-b border-grey-200 pb-3">
       <span class="text-[14px] leading-5 font-medium text-grey-800">Choose Time</span>
       <button type="button" data-popup-close aria-label="Tutup" class="absolute right-0 text-primary-500"><x-icon name="x" :size="24" /></button>
@@ -106,12 +109,12 @@ $groups = [
       var teks = pad(awal) + ' - ' + pad(akhir) + ' WIB';
       document.querySelectorAll('[data-time-label]').forEach(function (e) { e.textContent = teks; });
 
-      root.classList.add('hidden');
+      // Tampilkan field Time dan bar Continue; sembunyikan kotak info dan bar Check Availability
+      document.querySelectorAll('[data-time-show]').forEach(function (e) { e.classList.remove('hidden'); });
+      document.querySelectorAll('[data-time-hide]').forEach(function (e) { e.classList.add('hidden'); });
 
-      // Mode submit: kirim form setelah jam terisi
-      if (document.getElementById('{{ $id }}-body').dataset.submit === '1') {
-        document.getElementById('booking-form').submit();
-      }
+      // Tutup popup (user tetap di halaman form)
+      root.classList.add('hidden');
     });
   })();
 </script>
