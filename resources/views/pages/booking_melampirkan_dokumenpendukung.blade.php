@@ -17,9 +17,8 @@
 <div class="flex min-h-full flex-col bg-grey-100">
   <x-header_topappbar title="Booking" endIcon="x" :endUrl="route('rooms.detail', $ruangan->id)" />
 
-  {{-- TODO: ganti ke route('booking.dokumen.store', $ruangan->id) setelah route dibuat di routes/web.php --}}
   <form method="POST" enctype="multipart/form-data" class="flex flex-1 flex-col"
-        action="{{ url('/booking/'.$ruangan->id.'/dokumen') }}">
+        action="{{ route('booking.dokumen.store', $ruangan->id) }}">
     @csrf
     <input type="hidden" name="id_peminjaman" value="{{ $peminjaman->id }}">
 

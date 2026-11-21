@@ -8,7 +8,7 @@
     <x-icon name="arrow-left" :size="24" />
   </a>
 
-  <img src="{{ asset($avatar ?? 'images/avatar.jpg') }}" alt="{{ $name }}" class="size-10 shrink-0 rounded-full bg-primary-100 object-cover">
+  <x-avatar :src="$avatar" :name="$name" size="size-10" />
 
   <div class="flex min-w-0 flex-1 flex-col text-center">
     <span class="truncate text-[16px] leading-6 font-semibold text-grey-800">{{ $name }}</span>

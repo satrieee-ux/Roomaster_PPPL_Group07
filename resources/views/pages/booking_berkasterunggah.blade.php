@@ -15,9 +15,8 @@
   {{-- Seluruh isi halaman UC-09 (header, stepper, slot dokumen, tombol Continue) --}}
   @parent
 
-  {{-- Form hapus tersembunyi. Terpisah dari form unggah karena form tidak boleh bersarang.
-       TODO: ganti ke route('booking.dokumen.destroy', $ruangan->id) setelah route DELETE /booking/{id}/dokumen dibuat. --}}
-  <form id="form-hapus-dokumen" method="POST" action="{{ url('/booking/'.$ruangan->id.'/dokumen') }}" class="hidden">
+  {{-- Form hapus tersembunyi. Terpisah dari form unggah karena form tidak boleh bersarang.--}}
+  <form id="form-hapus-dokumen" method="POST" action="{{ route('booking.dokumen.destroy', $ruangan->id) }}" class="hidden">
     @csrf
     @method('DELETE')
     <input type="hidden" name="id_peminjaman" value="{{ $peminjaman->id }}">

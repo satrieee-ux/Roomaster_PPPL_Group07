@@ -28,7 +28,7 @@
 
     // Sementara mengikuti URL dari desain lama.
     // Perlu diganti ketika route UC-06 tersedia.
-    $backUrl = url('/bookings');
+    $backUrl = route('bookings');
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">

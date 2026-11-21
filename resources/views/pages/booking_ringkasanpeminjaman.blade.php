@@ -79,7 +79,7 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
       <section class="{{ $card }}">
         <div class="flex items-center justify-between">
           <h3 class="text-[18px] leading-7 font-medium text-grey-800">Supporting Documents</h3>
-          <a href="{{ url('/booking/'.$id.'/dokumen/terunggah') }}" aria-label="Ubah dokumen" class="text-grey-800"><x-icon name="pencil" :size="20" /></a>
+          <a href="{{ route('booking.dokumen.terunggah', $id) }}" aria-label="Ubah dokumen" class="text-grey-800"><x-icon name="pencil" :size="20" /></a>
         </div>
         <div class="mt-4 flex flex-col gap-4">
           @foreach($booking['documents'] as $doc)

@@ -4,7 +4,7 @@
 @php $out = $side === 'out'; @endphp
 
 <div @class(['flex items-end gap-3 px-5', 'flex-row-reverse' => $out])>
-  <img src="{{ asset($avatar ?? 'images/avatar.jpg') }}" alt="" class="size-8 shrink-0 rounded-full bg-primary-100 object-cover">
+  <x-avatar :src="$avatar" size="size-8" />
 
   <div @class(['flex min-w-0 flex-col gap-1', 'items-end' => $out, 'items-start' => ! $out])>
     <p @class([

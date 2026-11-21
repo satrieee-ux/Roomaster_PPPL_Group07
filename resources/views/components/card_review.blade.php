@@ -5,7 +5,7 @@
 <div {{ $attributes->class(['flex flex-col gap-2 rounded-xl bg-white px-4 py-3 shadow-card']) }}>
   <div class="flex items-center gap-3">
     <span class="relative size-10 shrink-0">
-      <img src="{{ asset($avatar ?? 'images/avatar.jpg') }}" alt="{{ $name }}" class="size-10 rounded-full bg-primary-100 object-cover">
+      <x-avatar :src="$avatar" :name="$name" size="size-10" />
 
     </span>
 

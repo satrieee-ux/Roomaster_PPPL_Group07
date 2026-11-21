@@ -98,9 +98,8 @@ $jam = substr($booking->waktu_mulai, 0, 5).' - '.substr($booking->waktu_selesai,
     </div>
   </div>
 
-  {{-- Form check-in: hanya @csrf, id booking ada di URL. Dikirim oleh tombol Proceed di popup.
-       TODO: ganti ke route('checkin.store', $booking->id) setelah route POST /checkin/{id} dibuat. --}}
-  <form id="form-checkin" method="POST" action="{{ url('/checkin/'.$booking->id) }}" class="hidden">
+  {{-- Form check-in: hanya @csrf, id booking ada di URL. Dikirim oleh tombol Proceed di popup.--}}
+  <form id="form-checkin" method="POST" action="{{ route('checkin.store', $booking->id) }}" class="hidden">
     @csrf
   </form>
 

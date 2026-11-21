@@ -21,7 +21,7 @@
   ]" />
 
   <div class="mt-10 flex flex-col gap-2">
-    <x-button :href="url('/bookings/'.$id)" variant="secondary" size="large" iconRight="arrow-right" class="w-full">View Booking Details</x-button>
+    <x-button :href="route('bookings.summary', $id)" variant="secondary" size="large" iconRight="arrow-right" class="w-full">View Booking Details</x-button>
     <x-button :href="url('/menu-utama')" variant="primary" size="large" iconLeft="home" class="w-full">Back to Home</x-button>
   </div>
 </div>

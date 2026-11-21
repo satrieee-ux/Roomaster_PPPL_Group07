@@ -62,10 +62,9 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
 
   {{-- Tombol Continue (setelah jam dipilih) mengirim form dengan POST ke /booking/{id_ruangan}.
        Controller menyimpan baris peminjaman berstatus 'draft', lalu redirect ke GET /booking/{id}/dokumen.
-       Halaman pilih jam terpisah tidak dipakai.
-       TODO: ganti ke route('booking.store', $id_ruangan) setelah route POST /booking/{id} dibuat di routes/web.php. --}}
+       Halaman pilih jam terpisah tidak dipakai.--}}
   <form id="booking-form" method="POST" class="flex flex-1 flex-col"
-        action="{{ url('/booking/'.$id_ruangan) }}">
+        action="{{ route('booking.store', $id_ruangan) }}">
     @csrf
     <main class="flex flex-1 flex-col px-6 pb-5 pt-[22px]">
       <h2 class="text-[24px] leading-7 font-extrabold text-grey-800">Details</h2>

@@ -13,10 +13,10 @@
     ];
 
     $tabs = [
-        ['label' => 'All', 'href' => url('/bookings')],
-        ['label' => 'Active', 'href' => url('/bookings/active')],
-        ['label' => 'Pending', 'href' => url('/bookings/pending')],
-        ['label' => 'History', 'href' => url('/bookings/history')],
+        ['label' => 'All', 'href' => route('bookings')],
+        ['label' => 'Active', 'href' => route('bookings.filter', 'active')],
+        ['label' => 'Pending', 'href' => route('bookings.filter', 'pending')],
+        ['label' => 'History', 'href' => route('bookings.filter', 'history')],
     ];
 
     $activeIndex = $tabNames[$activeTab] ?? 0;
