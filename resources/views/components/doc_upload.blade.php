@@ -1,4 +1,4 @@
-{{-- Slot unggah satu dokumen peminjaman: kotak "Upload File" ↔ kartu berkas (file_card).
+{{-- Slot unggah satu dokumen peminjaman: kotak "Upload File" ↔ kartu berkas (card_file).
      Contoh:
        <x-doc_upload jenis_dokumen="ktm_ktp" :dokumen="$ktm" />
        <x-doc_upload jenis_dokumen="surat_kegiatan" :dokumen="null" />
@@ -43,7 +43,7 @@ $statusBerkas = data_get($dokumen, 'status', 'draft');
   </label>
 
   {{-- Kartu berkas: tampil jika sudah ada file --}}
-  <x-file_card :nama_berkas="$namaBerkas" :ukuran_berkas="$ukuranBerkas" :status="$statusBerkas"
+  <x-card_file :nama_berkas="$namaBerkas" :ukuran_berkas="$ukuranBerkas" :status="$statusBerkas"
                :class="$adaFile ? '' : 'hidden'" data-doc-card />
 </div>
 
@@ -51,7 +51,7 @@ $statusBerkas = data_get($dokumen, 'status', 'draft');
 @once
 <script>
   (function () {
-    // Ubah byte menjadi teks. Rumusnya sama dengan PHP di file_card.
+    // Ubah byte menjadi teks. Rumusnya sama dengan PHP di card_file.
     function teksUkuran(byte) {
       if (byte >= 1048576) return (byte / 1048576).toFixed(1) + ' MB';
       return Math.round(byte / 1024) + ' KB';

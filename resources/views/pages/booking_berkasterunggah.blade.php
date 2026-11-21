@@ -31,7 +31,7 @@
       // Jenis dokumen yang sudah tersimpan di database, contoh ["ktm_ktp", "surat_kegiatan"]
       var tersimpan = @json(collect($dokumen ?? [])->keys()->values());
 
-      // Klik ikon hapus (atribut data-doc-remove dari file_card)
+      // Klik ikon hapus (atribut data-doc-remove dari card_file)
       document.addEventListener('click', function (e) {
         var tombol = e.target.closest && e.target.closest('[data-doc-remove]');
         if (!tombol) return;

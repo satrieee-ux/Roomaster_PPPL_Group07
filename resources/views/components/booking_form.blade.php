@@ -125,7 +125,7 @@ $kelasLabel = 'text-[14px] leading-5 font-semibold text-grey-800';
   </form>
 
   {{-- Popup pendukung form --}}
-  <x-popup_booking_pilihtanggal :value="$tanggalIso" />
+  <x-popup_booking_pilihtanggal_peminjaman :value="$tanggalIso" />
   <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :booked="$jam_terpakai" :selected="$jamTerpilih" />
   <x-popup_cancelbooking :open="false" :yesUrl="route('rooms.detail', $id_ruangan)" />
 </div>

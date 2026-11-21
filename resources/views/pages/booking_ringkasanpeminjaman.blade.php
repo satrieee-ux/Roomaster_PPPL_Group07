@@ -83,7 +83,7 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
         </div>
         <div class="mt-4 flex flex-col gap-4">
           @foreach($booking['documents'] as $doc)
-            <x-file_card :name="$doc['name']" :size="$doc['size']" />
+            <x-card_file :name="$doc['name']" :size="$doc['size']" />
           @endforeach
         </div>
       </section>

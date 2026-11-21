@@ -1,5 +1,5 @@
 {{-- Kartu berkas terunggah, menampilkan satu baris tabel dokumen_peminjaman.
-     Contoh: <x-file_card :nama_berkas="$dok->nama_berkas" :ukuran_berkas="$dok->ukuran_berkas" :status="$dok->status" />
+     Contoh: <x-card_file :nama_berkas="$dok->nama_berkas" :ukuran_berkas="$dok->ukuran_berkas" :status="$dok->status" />
      nama_berkas   = nama asli file (VARCHAR 255)
      ukuran_berkas = ukuran file dalam BYTE (INT), ditampilkan seperti "1.2 MB"
      status        = 'draft' | 'diterima' | 'revisi' | 'ditolak'

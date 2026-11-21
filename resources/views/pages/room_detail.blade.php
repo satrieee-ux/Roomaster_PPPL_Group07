@@ -128,6 +128,6 @@
   </main>
 
   {{-- BookBar (milik Thalia): Book Now ke alur booking, hati sesuai ruangan_favorit --}}
-  <x-component_bookbar :href="url('/booking/'.$ruangan->id)" :favorite="$favorit" />
+  <x-component_bookbar :href="route('booking.form', $ruangan->id)" :favorite="$favorit" />
 </div>
 @endsection
