@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\ProfilPengguna;
 
 return [
 
@@ -64,7 +64,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', User::class),
+            // Login testing tanpa MyITS SSO: akun diambil dari tabel profil_pengguna (username + password).
+            'model' => env('AUTH_MODEL', ProfilPengguna::class),
         ],
 
         // 'users' => [
