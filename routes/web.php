@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\ChatController;         
+use App\Http\Controllers\PesanController;
 use Illuminate\Support\Facades\Route;
 
 // =====================================================================
@@ -53,3 +57,26 @@ Route::middleware('auth')->group(function () {
 });
 
 // ===== Akhir blok Satya =====
+
+// =====================================================================
+// ===== Tasia: UC-15 s.d. UC-20 (Chat, Notifikasi, QReport, Laporan)
+// Semua halaman wajib login. Route literal ditulis SEBELUM route {id}.
+// =====================================================================
+Route::middleware('auth')->group(function () {
+    // LaporanController
+    Route::get('/qreporting', [LaporanController::class, 'scan'])->name('qreporting');
+    Route::get('/qreporting/report', [LaporanController::class, 'create'])->name('report.create');
+    Route::post('/qreporting/report', [LaporanController::class, 'simpanLaporan'])->name('report.store');
+    Route::get('/qreporting/submitted/{id}', [LaporanController::class, 'submitted'])->whereNumber('id')->name('report.submitted');
+    Route::get('/qreporting/history', [LaporanController::class, 'ambilHistoriLaporan'])->name('report.history');
+    Route::get('/qreporting/summary/{id}', [LaporanController::class, 'ambilRingkasanLaporan'])->whereNumber('id')->name('report.summary');
+
+    // ChatController + PesanController
+    Route::get('/chat', [ChatController::class, 'ambilDaftarPercakapan'])->name('chat');
+    Route::get('/chat/{id}', [ChatController::class, 'show'])->whereNumber('id')->name('chat.show');
+    Route::post('/chat/{id}', [PesanController::class, 'addMessage'])->whereNumber('id')->name('chat.send');
+
+    // NotifikasiController
+    Route::get('/notifikasi', [NotifikasiController::class, 'ambilNotifikasi'])->name('notifikasi');
+});
+// ===== Akhir blok Tasia =====
