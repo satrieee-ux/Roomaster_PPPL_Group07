@@ -1,3 +1,4 @@
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), pesan error per kolom dan penyesuaian gambar referensi --}}
 @extends('layouts.app')
 
 @section('content')
@@ -17,12 +18,6 @@
         <p class="text-[16px] leading-6 font-normal text-grey-600">Please provide details about the issue to help our maintenance team resolve it quickly.</p>
       </div>
 
-      @if($errors->any())
-        <div class="rounded-xl bg-danger-50 p-3 text-[12px] leading-4 font-medium text-danger-800">
-          @foreach($errors->all() as $e)<p>{{ $e }}</p>@endforeach
-        </div>
-      @endif
-
       {{-- Room Location --}}
       <div class="flex flex-col gap-2">
         <h3 class="text-[16px] leading-6 font-semibold text-grey-800">Room Location</h3>
@@ -41,7 +36,8 @@
         <label for="judul" class="text-[14px] leading-5 font-semibold text-grey-800">Report Title</label>
         <input id="judul" name="judul" type="text" maxlength="150" value="{{ old('judul', $draft->judul ?? '') }}"
           placeholder="e.g. AC leaking in Room 4202"
-          class="h-12 w-full rounded-xl border border-grey-200 bg-grey-50 px-3 text-[14px] leading-5 font-normal text-grey-800 outline-none placeholder:text-grey-500">
+          class="h-12 w-full rounded-xl border {{ $errors->has('judul') ? 'border-danger-500' : 'border-grey-200' }} bg-grey-50 px-3 text-[14px] leading-5 font-normal text-grey-800 outline-hidden placeholder:text-grey-500">
+        <x-form_error name="judul" />
       </div>
 
       {{-- Categories: SATU pilihan (radio), nilai = ENUM kategori_kerusakan --}}
@@ -64,6 +60,7 @@
             </span>
           </label>
         </div>
+        <x-form_error name="kategori_kerusakan" />
       </div>
 
       <hr class="border-grey-300">
@@ -72,7 +69,8 @@
       <div class="flex flex-col gap-2.5">
         <label for="issue" class="text-[14px] leading-5 font-semibold text-grey-800">Issue Description</label>
         <textarea id="issue" name="deskripsi_masalah" placeholder="Briefly describe the issue"
-          class="h-[106px] w-full resize-none rounded-xl border border-grey-200 bg-grey-50 p-3 text-[14px] leading-5 font-normal text-grey-800 outline-none placeholder:text-grey-500">{{ old('deskripsi_masalah', $draft->deskripsi_masalah ?? '') }}</textarea>
+          class="h-[106px] w-full resize-none rounded-xl border {{ $errors->has('deskripsi_masalah') ? 'border-danger-500' : 'border-grey-200' }} bg-grey-50 p-3 text-[14px] leading-5 font-normal text-grey-800 outline-hidden placeholder:text-grey-500">{{ old('deskripsi_masalah', $draft->deskripsi_masalah ?? '') }}</textarea>
+        <x-form_error name="deskripsi_masalah" />
       </div>
 
       {{-- Evidence = unggah bukti (bukti_laporan) --}}
@@ -91,6 +89,7 @@
             <x-icon name="mountain" :size="32" />
           </div>
         </div>
+        <x-form_error name="bukti.*" />
       </div>
     </main>
 

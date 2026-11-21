@@ -4,7 +4,8 @@
 <div class="flex min-h-full flex-col bg-grey-100 px-6 pb-5 pt-[91px]">
   <svg viewBox="0 0 128 128" class="mx-auto size-[128px]" aria-hidden="true">
     <circle cx="64" cy="64" r="64" fill="#43B75D"/>
-    <path d="M38 66l17 17 35-37" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="64" cy="64" r="30" fill="none" stroke="#fff" stroke-width="7"/>
+    <path d="M52 65l9 9 17-20" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
   <h2 class="mt-6 text-center text-[24px] leading-7 font-extrabold text-grey-800">Report Submitted</h2>

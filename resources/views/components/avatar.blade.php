@@ -1,7 +1,12 @@
 {{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
 {{-- Avatar bulat. src = path relatif (foto_profil), fallback images/avatar.jpg.
-     Tanpa titik online (tidak ada di DDL). Ukuran lewat prop size (class Tailwind). --}}
-@props(['src' => null, 'name' => '', 'size' => 'size-10'])
+     online = titik hijau di pojok kanan bawah, sesuai gambar referensi. --}}
+@props(['src' => null, 'name' => '', 'size' => 'size-10', 'online' => false])
 
-<img src="{{ asset($src ?: 'images/avatar.jpg') }}" alt="{{ $name }}"
-     {{ $attributes->class(['shrink-0 rounded-full bg-primary-100 object-cover', $size]) }}>
+<span {{ $attributes->class(['relative inline-flex shrink-0']) }}>
+  <img src="{{ asset($src ?: 'images/avatar.jpg') }}" alt="{{ $name }}"
+       class="{{ $size }} rounded-full bg-primary-100 object-cover">
+  @if($online)
+    <span class="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-white bg-success-500"></span>
+  @endif
+</span>

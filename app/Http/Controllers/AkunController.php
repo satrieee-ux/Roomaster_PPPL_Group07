@@ -211,8 +211,10 @@ class AkunController extends Controller
             'waktu'   => substr($b->waktu_mulai, 0, 5).' - '.substr($b->waktu_selesai, 0, 5).' WIB',
             'lokasi'  => $b->lokasi,
             'foto'    => $b->foto_ruangan,
-            // Pill "Upcoming" hanya bila is_upcoming = 1 (1 jam sebelum mulai), selain itu "Approved"
-            'status'  => $b->is_upcoming ? 'upcoming' : 'approved',
+            // + Satrio: status mengikuti ENUM ('disetujui'); pill "Upcoming" dan tombol Check-In muncul
+            // hanya bila is_upcoming = 1 (diatur card_booking dan status_pill lewat isUpcoming)
+            'status'     => 'disetujui',
+            'isUpcoming' => (bool) $b->is_upcoming,
         ];
     }
 

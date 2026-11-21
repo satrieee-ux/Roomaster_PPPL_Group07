@@ -34,11 +34,9 @@
             </h1>
         </div>
 
-        <x-tabs
-            :items="$tabs"
-            :active="$activeIndex"
-            class="mt-3 px-6"
-        />
+        <div class="mt-3 border-b border-grey-300">
+            <x-tabs :items="$tabs" :active="$activeIndex" class="border-b-0! px-6" />
+        </div>
     </div>
 
     <main class="flex flex-1 flex-col pb-5">

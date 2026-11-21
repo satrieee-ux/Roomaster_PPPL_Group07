@@ -10,15 +10,19 @@
      Form mengirim (POST, multipart):
        id_peminjaman, file "ktm_ktp", file "surat_kegiatan" (nama input = nilai ENUM jenis_dokumen).
        Slot yang tidak diganti dikirim kosong → controller memakai dokumen lama.
-       Satu jenis = satu dokumen per booking: file baru menggantikan baris dan file lama. --}}
+       Satu jenis = satu dokumen per booking: file baru menggantikan baris dan file lama.
+
+     + Satrio: pesan error validasi tampil di bawah slot masing-masing (x-form_error di doc_upload,
+       kuncinya ktm_ktp dan surat_kegiatan), bukan satu blok di bawah. Form diberi novalidate. --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="flex min-h-full flex-col bg-grey-100">
   <x-header_topappbar title="Booking" endIcon="x" :endUrl="route('rooms.detail', $ruangan->id)" />
 
-  <form method="POST" enctype="multipart/form-data" class="flex flex-1 flex-col"
-        action="{{ route('booking.dokumen.store', $ruangan->id) }}">
+  {{-- TODO: ganti ke route('booking.dokumen.store', $ruangan->id) setelah route dibuat di routes/web.php --}}
+  <form method="POST" enctype="multipart/form-data" class="flex flex-1 flex-col" novalidate
+        action="{{ url('/booking/'.$ruangan->id.'/dokumen') }}">
     @csrf
     <input type="hidden" name="id_peminjaman" value="{{ $peminjaman->id }}">
 
@@ -32,16 +36,12 @@
 
       <h3 class="mt-7 text-[18px] leading-7 font-medium text-grey-800">Uploaded Files</h3>
 
-      {{-- Dua slot dokumen sesuai ENUM dokumen_peminjaman.jenis_dokumen --}}
+      {{-- Dua slot dokumen sesuai ENUM dokumen_peminjaman.jenis_dokumen.
+           Error validasi tiap slot tampil di bawah slotnya sendiri (lihat doc_upload). --}}
       <div class="mt-4 flex flex-col gap-[18px]">
         <x-doc_upload jenis_dokumen="ktm_ktp" :dokumen="$dokumen['ktm_ktp'] ?? null" />
         <x-doc_upload jenis_dokumen="surat_kegiatan" :dokumen="$dokumen['surat_kegiatan'] ?? null" />
       </div>
-
-      {{-- Pesan error validasi dari controller (misal file terlalu besar atau tipe file salah) --}}
-      @if($errors->any())
-        <p class="mt-4 text-[14px] leading-5 font-medium text-danger-500">{{ $errors->first() }}</p>
-      @endif
     </main>
 
     {{-- Continue mengirim form. Tombol otomatis aktif jika kedua slot terisi (diatur oleh doc_upload). --}}

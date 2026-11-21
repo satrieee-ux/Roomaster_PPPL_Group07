@@ -6,7 +6,7 @@ $items = [
   'home'      => ['Home',      'home',           '/home'],
   'rooms'     => ['Rooms',     'door-open',      '/rooms'],
   'qreport'   => ['QReport',   'scan-qr',        '/qreporting'],
-  'scheduled' => ['Scheduled', 'calendar-check', '/bookings'],
+    'scheduled' => ['Scheduled', 'calendar',       '/bookings'],
   'profile'   => ['Profile',   'user',           '/profile'],
 ];
 @endphp

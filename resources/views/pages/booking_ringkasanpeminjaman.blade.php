@@ -83,8 +83,11 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
         </div>
         <div class="mt-4 flex flex-col gap-4">
           @foreach($booking['documents'] as $doc)
-            <x-card_file :name="$doc['name']" :size="$doc['size']" />
-          @endforeach
+            <x-card_file :nama_berkas="data_get($doc, 'nama_berkas')"
+               :ukuran_berkas="data_get($doc, 'ukuran_berkas')"
+               :status="data_get($doc, 'status', 'draft')"
+               :removable="false" />
+            @endforeach
         </div>
       </section>
     </div>
@@ -98,7 +101,7 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
     </div>
   </main>
 
-  <x-popup_prebook :open="false" />
+    <x-popup_prebook :open="false" :submitUrl="route('booking.submit', $id)" />
   <x-popup_cancelbooking :open="false" :yesUrl="url('/rooms/'.$id)" />
 </div>
 @endsection

@@ -1,10 +1,12 @@
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disesuaikan dengan gambar "Melihat history laporan" --}}
 {{--
-  Report card (Reports History). Source: laporan_kerusakan + data_ruangan.
-  ONE issue chip only. Draft: Continue + Details. Other statuses: Details.
+  Kartu laporan (Reports History). Sumber: laporan_kerusakan + data_ruangan.
+  Satu baris masalah (ikon + kategori). Draft: Continue + Details. Status lain: Details.
+  Judul kartu = kode ruangan (sesuai gambar). Prop judul tetap diterima tetapi tidak ditampilkan.
 --}}
 @props([
     'id',
-    'judul',
+    'judul' => null,
     'kodeRuangan',
     'lokasi'  => null,
     'tanggal' => null,    // laporan_kerusakan.tanggal_lapor
@@ -15,58 +17,52 @@
 ])
 
 @php
-    $kode = str_pad($id, 6, '0', STR_PAD_LEFT);
+    // [label, ikon] per kategori. Nama ikon harus ada di components/icon.blade.php.
+    [$kategoriLabel, $kategoriIkon] = [
+        'ac'           => ['Air Conditioning', 'air-vent'],
+        'proyektor_av' => ['Projector',        'projector'],
+        'listrik'      => ['Lighting',         'lightbulb'],
+        'furnitur'     => ['Desk/Seating',     'armchair'],
+        'jaringan'     => ['Network',          'wifi'],
+        'kebersihan'   => ['Cleanliness',      'alert-circle'],
+        'lainnya'      => ['Others',           'alert-circle'],
+    ][$kategori] ?? ['Others', 'alert-circle'];
 
-    $kategoriLabel = [
-        'ac' => 'Air Conditioning', 'proyektor_av' => 'Projector',
-        'listrik' => 'Lighting', 'furnitur' => 'Desk/Seating',
-        'jaringan' => 'Network', 'kebersihan' => 'Cleanliness', 'lainnya' => 'Others',
-    ][$kategori] ?? 'Others';
+    // Bulan berbahasa Indonesia seperti di gambar: "24 Okt 2023"
+    $tgl = $tanggal ? \Carbon\Carbon::parse($tanggal)->locale('id')->translatedFormat('d M Y') : null;
 
-    // SWAP: replace with <x-status_pill> once Thalia's version exists.
-    [$statusLabel, $statusClass] = [
-        'draft'    => ['Draft',       'bg-primary-50 text-primary-600 border-primary-100'],
-        'pending'  => ['Pending',     'bg-warning-50 text-warning-500 border-warning-500'],
-        'diproses' => ['In Progress', 'bg-secondary-50 text-secondary-600 border-secondary-100'],
-        'selesai'  => ['Resolved',    'bg-success-50 text-success-800 border-success-300'],
-    ][$status] ?? ['Unknown', 'bg-grey-50 text-grey-600 border-grey-100'];
-
-    $tgl = $tanggal ? \Carbon\Carbon::parse($tanggal)->translatedFormat('d M Y') : null;
-    $detail   = $detailHref   ?? url('/qreporting/summary/' . $id);
-    $continue = $continueHref ?? url('/qreporting/report?draft=' . $id);
+    $detail   = $detailHref   ?? route('report.summary', $id);
+    $continue = $continueHref ?? route('report.create', ['draft' => $id]);
 @endphp
 
-<div {{ $attributes->merge(['class' => 'rounded-2xl border border-grey-100 bg-white p-4 shadow-card']) }}>
-    <div class="flex items-start justify-between gap-3">
-        <div class="min-w-0">
-            <h3 class="truncate text-[16px] leading-6 font-semibold text-grey-900">{{ $judul }}</h3>
-            <p class="text-[12px] leading-4 font-normal text-grey-600">{{ $kodeRuangan }} · #{{ $kode }}</p>
-        </div>
-        <span class="shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] leading-4 font-semibold {{ $statusClass }}">
-            {{ $statusLabel }}
-        </span>
+<div {{ $attributes->class(['rounded-2xl bg-grey-50 px-5 py-4 shadow-card']) }}>
+    <div class="flex items-center justify-between gap-3">
+        <h3 class="min-w-0 truncate text-[18px] leading-7 font-medium text-grey-800">{{ $kodeRuangan }}</h3>
+        @if($status === 'selesai')
+            <x-status_pill status="selesai">Resolved</x-status_pill>
+        @else
+            <x-status_pill :status="$status" />
+        @endif
     </div>
 
-    <div class="mt-2 flex flex-col gap-1 text-[12px] leading-4 font-normal text-grey-600">
+    <div class="mt-1 flex flex-col gap-1 text-[10px] leading-[14px] font-medium text-grey-800">
         @if($tgl)
-            <p class="flex items-center gap-1.5"><x-icon name="calendar" :size="16" /> {{ $tgl }}</p>
+            <p class="flex items-center gap-1"><x-icon name="calendar" :size="12" /> {{ $tgl }}</p>
         @endif
         @if($lokasi)
-            <p class="flex items-center gap-1.5"><x-icon name="map-pin" :size="16" /> <span class="truncate">{{ $lokasi }}</span></p>
+            <p class="flex items-center gap-1"><x-icon name="map-pin" :size="12" /> <span class="truncate">{{ $lokasi }}</span></p>
         @endif
     </div>
 
-    {{-- ONE issue chip --}}
-    <div class="mt-3">
-        <span class="inline-flex items-center rounded-full bg-grey-50 px-3 py-1 text-[12px] leading-4 font-medium text-grey-600">
-            {{ $kategoriLabel }}
-        </span>
+    {{-- Satu masalah: ikon kategori + nama kategori --}}
+    <div class="mt-3 flex items-center gap-2.5 text-[16px] leading-6 font-normal text-grey-800">
+        <x-icon :name="$kategoriIkon" :size="20" class="shrink-0" /> {{ $kategoriLabel }}
     </div>
 
-    <div class="mt-4 flex gap-2">
+    <div class="mt-4 flex gap-4">
         @if($status === 'draft')
-            <x-button :href="$continue" variant="primary" size="small" class="flex-1">Continue</x-button>
+            <x-button :href="$continue" variant="primary" size="tiny" class="flex-1">Continue</x-button>
         @endif
-        <x-button :href="$detail" variant="soft" size="small" class="flex-1">Details</x-button>
+        <x-button :href="$detail" variant="soft" size="tiny" class="flex-1">Details</x-button>
     </div>
 </div>

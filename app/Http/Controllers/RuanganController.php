@@ -80,6 +80,7 @@ class RuanganController extends Controller
     {
         $ruangan = Ruangan::findOrFail($idRuangan);
         $ulasan = DB::table('v_ulasan_ruangan')->where('id_ruangan', $idRuangan);
+        $tersedia = DB::table('v_ketersediaan_ruangan')->where('id_ruangan', $idRuangan)->value('tersedia_sekarang');
 
         return view('pages.room_reviews', [
             'ruangan'      => $ruangan,
@@ -89,6 +90,7 @@ class RuanganController extends Controller
             'semuaUlasan'  => (clone $ulasan)->orderByDesc('tanggal_ulasan')->get(),
             'rataRating'   => round((clone $ulasan)->avg('rating') ?? 0, 1),
             'jumlahUlasan' => (clone $ulasan)->count(),
+            'tersedia'     => (int) $tersedia === 1,
         ]);
     }
 

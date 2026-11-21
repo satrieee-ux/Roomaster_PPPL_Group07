@@ -34,18 +34,18 @@
         @foreach($tabItems as $index => $item)
             @php
                 $icon = $item['icon'];
-                $isActive = $index === (int) $active;
+                $isActive = is_numeric($active) ? $index === (int) $active : $item['label'] === $active;
             @endphp
 
             <a href="{{ $item['href'] }}" @class([
                 'inline-flex shrink-0 items-center whitespace-nowrap rounded-full text-[12px] leading-4 font-medium',
-                'h-8 gap-1.5 px-4' => $icon,
+                'h-10 gap-2 pl-3 pr-4' => $icon,
                 'h-8 px-4' => !$icon,
                 'bg-primary-800 text-white shadow-[0_0_12px_rgba(59,123,160,0.5)]' => $isActive,
                 'bg-grey-200 text-primary-500' => !$isActive,
             ])>
                 @if($icon)
-                    <x-icon :name="$icon" :size="16" />
+                    <x-icon :name="$icon" :size="24" />
                 @endif
 
                 {{ $item['label'] }}
@@ -58,7 +58,7 @@
     ]) }}>
         @foreach($tabItems as $index => $item)
             @php
-                $isActive = $index === (int) $active;
+                $isActive = is_numeric($active) ? $index === (int) $active : $item['label'] === $active;
             @endphp
 
             <a href="{{ $item['href'] }}" @class([

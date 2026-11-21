@@ -17,6 +17,12 @@ class LaporanController extends Controller
         'jaringan' => 'Network', 'kebersihan' => 'Cleanliness', 'lainnya' => 'Others',
     ];
 
+    // ENUM kategori_kerusakan => nama ikon (harus ada di components/icon.blade.php)
+    private const IKON = [
+        'ac' => 'air-vent', 'proyektor_av' => 'projector', 'listrik' => 'lightbulb',
+        'furnitur' => 'armchair', 'jaringan' => 'wifi', 'kebersihan' => 'alert-circle', 'lainnya' => 'alert-circle',
+    ];
+
     // ASSUMPTION: model auth profil_pengguna punya kolom id_mahasiswa.
     // Kalau login hanya menyimpan id di session, ganti dengan (int) session('id_mahasiswa').
     private function mahasiswaId(): int
@@ -61,7 +67,7 @@ class LaporanController extends Controller
 
         // ASSUMPTION: nama ikon harus ada di icon.blade.php
         $categories = [
-            ['value' => 'ac',           'label' => 'Air Conditioning', 'icon' => 'snowflake'],
+            ['value' => 'ac',           'label' => 'Air Conditioning', 'icon' => 'air-vent'],
             ['value' => 'proyektor_av', 'label' => 'Projector',        'icon' => 'projector'],
             ['value' => 'listrik',      'label' => 'Lighting',         'icon' => 'lightbulb'],
             ['value' => 'furnitur',     'label' => 'Desk/Seating',     'icon' => 'armchair'],
@@ -174,6 +180,7 @@ class LaporanController extends Controller
             'location'    => $l->lokasi,
             'date'        => Carbon::parse($l->tanggal_lapor)->translatedFormat('j F Y'),
             'category'    => self::KATEGORI[$l->kategori_kerusakan] ?? 'Others',   // SATU chip
+            'category_icon' => self::IKON[$l->kategori_kerusakan] ?? 'alert-circle',
             'description' => $l->deskripsi_masalah,
             'evidence'    => $evidence,
         ];

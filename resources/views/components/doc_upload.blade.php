@@ -37,6 +37,7 @@ $statusBerkas = data_get($dokumen, 'status', 'draft');
   <label data-doc-drop @class([
     'flex h-[46px] cursor-pointer items-center justify-center gap-2 rounded-xl border border-grey-200 bg-grey-50 text-[16px] leading-6 font-medium text-grey-500',
     'hidden' => $adaFile,
+    'border-danger-500!' => $errors->has($namaInput),
   ])>
     <x-icon name="upload" :size="20" /> Upload File
     <input type="file" name="{{ $namaInput }}" accept=".pdf,.jpg,.jpeg,.png" class="sr-only" data-doc-input>
@@ -45,6 +46,7 @@ $statusBerkas = data_get($dokumen, 'status', 'draft');
   {{-- Kartu berkas: tampil jika sudah ada file --}}
   <x-card_file :nama_berkas="$namaBerkas" :ukuran_berkas="$ukuranBerkas" :status="$statusBerkas"
                :class="$adaFile ? '' : 'hidden'" data-doc-card />
+    <x-form_error :name="$namaInput" />
 </div>
 
 {{-- @once: script ini cukup dimuat sekali walaupun ada beberapa slot dokumen --}}

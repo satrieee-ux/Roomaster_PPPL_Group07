@@ -33,10 +33,10 @@
         </div>
         <div class="flex flex-col gap-1">
           <span class="text-[14px] leading-5 font-semibold text-grey-500">Issue Reported</span>
-          {{-- SATU chip isu --}}
-          <div>
-            <span class="inline-flex items-center rounded-full bg-grey-100 px-3 py-1 text-[12px] leading-4 font-medium text-grey-800">{{ $report['category'] }}</span>
-          </div>
+                  {{-- SATU isu: ikon + nama kategori --}}
+        <div class="flex items-center gap-2 text-[14px] leading-5 font-medium text-grey-800">
+          <x-icon :name="$report['category_icon']" :size="20" class="shrink-0" /> {{ $report['category'] }}
+        </div>
         </div>
       </div>
     </section>

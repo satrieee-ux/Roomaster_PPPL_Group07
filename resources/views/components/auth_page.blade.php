@@ -7,7 +7,7 @@
   <div class="sticky top-0 z-0 h-0">
     <div class="absolute left-0 top-0 h-dvh w-full bg-primary-900 bg-cover bg-center md:h-[844px]"
          style="background-image: url('{{ asset('images/bg/auth.jpg') }}')">
-      <div class="absolute inset-0 bg-gradient-to-b from-primary-900/80 via-primary-900/30 to-transparent"></div>
+      <div class="absolute inset-0 bg-linear-to-b from-primary-900/80 via-primary-900/30 to-transparent"></div>
     </div>
   </div>
 

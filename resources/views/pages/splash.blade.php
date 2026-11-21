@@ -9,7 +9,7 @@
 
   <div class="mt-14 flex w-full flex-col gap-3">
     <x-button :href="url('/signup')" variant="primary" size="medium" class="w-full">Get Started</x-button>
-    <x-button :href="url('/login')" variant="primary" size="medium" class="w-full !bg-white !text-grey-800 shadow-card">Log In</x-button>
+    <x-button :href="url('/login')" variant="primary" size="medium" class="w-full bg-white! text-grey-800! shadow-card">Log In</x-button>
   </div>
 </div>
 @endsection
