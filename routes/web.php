@@ -4,9 +4,11 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\ChatController;         
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PesanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\UlasanController;
 
 // =====================================================================
 // ===== Satya: UC-01 s.d. UC-04 (Login, Menu Utama, Rooms, Search, Room Detail)
@@ -80,3 +82,47 @@ Route::middleware('auth')->group(function () {
     Route::get('/notifikasi', [NotifikasiController::class, 'ambilNotifikasi'])->name('notifikasi');
 });
 // ===== Akhir blok Tasia =====
+
+// =====================================================================
+// ===== Kerangka route UC-06 s.d. UC-14 (Peminjaman, Check-In/Out, Ulasan)
+// Dibuat oleh: Muhammad Satrio Adjie (5026241065)
+// Pengerjaan isi: Thalia (UC-06, 07, 11, 13, 14) dan Thoriq (UC-08, 09, 10, 12)
+// Nama method mengikuti Katalog Penamaan (bagian 4). [tambahan] = tidak ada di sequence diagram.
+// Route literal ditulis SEBELUM route {id}.
+// =====================================================================
+Route::middleware('auth')->group(function () {
+
+    // UC-07 (Thalia): daftar dan filter pengajuan
+    Route::get('/bookings', [PeminjamanController::class, 'daftarPengajuan'])->name('bookings');
+    Route::get('/bookings/{kategori}', [PeminjamanController::class, 'filterPengajuan'])
+        ->whereIn('kategori', ['active', 'pending', 'history'])->name('bookings.filter');
+    // UC-06 (Thalia): booking summary dan riwayat aktivitas
+    Route::get('/bookings/{id}', [PeminjamanController::class, 'riwayat'])->whereNumber('id')->name('bookings.summary');
+
+    // UC-08 (Thoriq): form, kalender, ketersediaan. {id} = id ruangan
+    Route::get('/booking/{id}', [PeminjamanController::class, 'isiFormulir'])->whereNumber('id')->name('booking.form');        // [tambahan]
+    Route::get('/booking/{id}/tanggal', [PeminjamanController::class, 'cekKetersediaan'])->whereNumber('id')->name('booking.tanggal');
+    Route::post('/booking/{id}', [PeminjamanController::class, 'simpanDraft'])->whereNumber('id')->name('booking.store');   // [tambahan] simpan draft
+
+    // UC-09 dan UC-10 (Thoriq): dokumen pendukung
+    Route::get('/booking/{id}/dokumen', [PeminjamanController::class, 'halamanDokumen'])->whereNumber('id')->name('booking.dokumen');            // [tambahan]
+    Route::post('/booking/{id}/dokumen', [PeminjamanController::class, 'uploadDokumen'])->whereNumber('id')->name('booking.dokumen.store');
+    Route::get('/booking/{id}/dokumen/terunggah', [PeminjamanController::class, 'ambilDokumen'])->whereNumber('id')->name('booking.dokumen.terunggah'); // [tambahan]
+    Route::delete('/booking/{id}/dokumen', [PeminjamanController::class, 'hapusDokumen'])->whereNumber('id')->name('booking.dokumen.destroy');
+
+    // UC-11 (Thalia): ringkasan dan kirim pengajuan
+    Route::get('/booking/{id}/ringkasan', [PeminjamanController::class, 'ambilDataPeminjaman'])->whereNumber('id')->name('booking.ringkasan');
+    Route::post('/booking/{id}/ajukan', [PeminjamanController::class, 'simpanPengajuan'])->whereNumber('id')->name('booking.submit');
+    Route::get('/booking/{id}/berhasil', [PeminjamanController::class, 'berhasil'])->whereNumber('id')->name('booking.berhasil');           // [tambahan]
+
+    // UC-12 Check-In (Thoriq) dan UC-13 Check-Out (Thalia): satu method sesuai Katalog,
+    // parameter aksi membedakan. {id} = id peminjaman
+    Route::get('/checkin/{id}', [PeminjamanController::class, 'halamanRoomState'])->defaults('aksi', 'checkin')->whereNumber('id')->name('checkin');            // [tambahan]
+    Route::post('/checkin/{id}', [PeminjamanController::class, 'updateRoomState'])->defaults('aksi', 'checkin')->whereNumber('id')->name('checkin.store');
+    Route::get('/checkout/{id}', [PeminjamanController::class, 'halamanRoomState'])->defaults('aksi', 'checkout')->whereNumber('id')->name('checkout');         // [tambahan]
+    Route::post('/checkout/{id}', [PeminjamanController::class, 'updateRoomState'])->defaults('aksi', 'checkout')->whereNumber('id')->name('checkout.store');
+
+    // UC-14 (Thalia): ulasan, hanya setelah booking selesai
+    Route::post('/bookings/{id}/ulasan', [UlasanController::class, 'addReview'])->whereNumber('id')->name('ulasan.store');
+});
+// ===== Akhir kerangka UC-06 s.d. UC-14 =====
