@@ -24,13 +24,14 @@ class LaporanController extends Controller
         return (int) Auth::user()->id_mahasiswa;
     }
 
-    // UC-18: halaman scan QR (view Qreporting, casing harus sama dengan nama file)
+    // UC-18 (Tasia): Katalog menaruh ambilDataRuangan(QR) di RuanganController. Sengaja dipertahankan di
+    // LaporanController (scan() dan create()) karena langsung terkait alur laporan. Dicatat di Satrio, 21 Nov 2026.
     public function scan()
     {
         // Simulasi hasil scan: pakai kode ruangan pertama di data dummy
         $kodeDemo = DB::table('data_ruangan')->orderBy('id')->value('kode_ruangan');
 
-        return view('Qreporting', compact('kodeDemo'));
+        return view('pages.Qreporting', compact('kodeDemo'));
     }
 
     // UC-19: form laporan. ?kode=SI-4202 (hasil scan) | ?draft=ID (lanjut draft)
@@ -66,7 +67,7 @@ class LaporanController extends Controller
             ['value' => 'furnitur',     'label' => 'Desk/Seating',     'icon' => 'armchair'],
         ];
 
-        return view('laporkerusakan', compact('location', 'categories', 'draft'));
+        return view('pages.laporkerusakan', compact('location', 'categories', 'draft'));
     }
 
     // UC-19: simpan laporan. aksi=draft -> status draft, aksi=kirim -> status pending
@@ -142,7 +143,7 @@ class LaporanController extends Controller
 
         $kode = str_pad($laporan->id, 6, '0', STR_PAD_LEFT);   // guide 3.1
 
-        return view('laporkerusakan_submitted', compact('laporan', 'kode'));
+        return view('pages.laporkerusakan_submitted', compact('laporan', 'kode'));
     }
 
     // UC-20: ringkasan satu laporan
@@ -177,7 +178,7 @@ class LaporanController extends Controller
             'evidence'    => $evidence,
         ];
 
-        return view('ringkasanlaporan', compact('report'));
+        return view('pages.ringkasanlaporan', compact('report'));
     }
 
     // UC-20: riwayat laporan milik user. ?filter=pending|diproses|selesai
@@ -201,6 +202,6 @@ class LaporanController extends Controller
 
         $active = ['pending' => 'Pending', 'diproses' => 'In Progress', 'selesai' => 'Resolved'][$filter] ?? 'All';
 
-        return view('riwayatlaporan', compact('reports', 'active'));
+        return view('pages.riwayatlaporan', compact('reports', 'active'));
     }
 }
