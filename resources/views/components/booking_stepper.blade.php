@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman; juga dipakai di UC-09, UC-11 --}}
 {{-- Stepper 3 langkah booking: 1 Details, 2 Documents, 3 Confirmation.
      Contoh: <x-booking_stepper :step="2" />
      step = nomor langkah yang sedang aktif (1, 2, atau 3). --}}

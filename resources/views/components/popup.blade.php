@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Dasar popup. Buka: elemen apa pun dengan data-popup-open="ID". Tutup: data-popup-close, atau klik latar gelap.
      Slot: default (isi), body (pesan kaya/HTML), actions (tombol). stack=true → tombol bertumpuk. --}}
 @props([
@@ -5,12 +7,14 @@
   'open' => true, 'sheet' => false, 'stack' => false,
 ])
 @php
+// Warna lingkaran ikon di atas judul popup per tone.
 $tones = [
   'primary'   => 'bg-primary-50 text-primary-500',
   'danger'    => 'bg-danger-50 text-danger-500',
   'success'   => 'bg-success-50 text-success-500',
   'secondary' => 'bg-secondary-50 text-secondary-500',
 ];
+// Slot kosong berarti popup tanpa isi tambahan, jadi area slot tidak dirender.
 $hasSlot = trim((string) $slot) !== '';
 @endphp
 <div @if($id) id="{{ $id }}" @endif data-popup role="dialog" aria-modal="true"
@@ -37,6 +41,8 @@ $hasSlot = trim((string) $slot) !== '';
 
 @once
 <script>
+  // Satu pendengar klik untuk semua popup: [data-popup-open="id"] membuka popup ber-id itu,
+  // [data-popup-close] menutup popup terdekat, dan klik pada latar gelap juga menutup.
   document.addEventListener('click', function (e) {
     var o = e.target.closest('[data-popup-open]');
     if (o) { e.preventDefault(); var p = document.getElementById(o.dataset.popupOpen); if (p) p.classList.remove('hidden'); return; }

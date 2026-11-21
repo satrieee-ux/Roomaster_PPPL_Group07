@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-03 Mencari Ruangan (Explore Rooms) & Melihat Hasil Pencarian Ruangan --}}
 {{-- Modal Filter (bottom sheet): kapasitas, fasilitas, tipe ruangan. Dikirim GET ke halaman hasil.
      Contoh: <x-popup_filter :action="url('/rooms/search/filter')" :fasilitas="$fasilitas" />
      fasilitas = koleksi model Fasilitas (tabel fasilitas), tidak di-hardcode lagi.

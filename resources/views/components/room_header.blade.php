@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- UC-04 Memeriksa Informasi & Fasilitas Ruangan; juga dipakai di UC-05 --}}
 {{-- Kepala halaman ruangan, dipakai bersama oleh room_detail (tab About) dan room_reviews (tab Reviews):
      tombol back/share, foto, label + rating, judul, lokasi, pill ketersediaan, dan tab.
      Tanpa pembungkus: tombol melayang harus anak langsung kolom halaman supaya sticky.

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-03 Mencari Ruangan (Explore Rooms) & Melihat Hasil Pencarian Ruangan --}}
 {{-- Header pencarian (gelap, sticky). filters kosong = kolom Search; berisi = kotak chip filter.
      Kolom Search dikirim GET ke /rooms/search/name (searchByName) dengan nama "q". Enter untuk mencari.
      filters: [['icon'=>'users','label'=>'50-99'], ['label'=>'Departemen'], ['icon'=>'air-vent'], ['icon'=>'x','href'=>'/rooms/search']] --}}

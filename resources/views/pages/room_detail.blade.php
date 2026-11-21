@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-04 Memeriksa Informasi & Fasilitas Ruangan --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan perbaikan bug --}}
 @extends('layouts.app')
 
 @section('content')

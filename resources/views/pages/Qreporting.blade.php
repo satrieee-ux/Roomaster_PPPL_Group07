@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-18 Scan QR Ruangan --}}
 @extends('layouts.app')
 
 @section('content')
@@ -37,6 +39,8 @@
 
 <script>
   (function () {
+    // Nyalakan kamera belakang sebagai pratinjau pemindai. Bila izin ditolak atau browser tidak mendukung,
+    // pratinjau dibiarkan kosong (pemindaian disimulasikan lewat ketukan pada bingkai).
     var v = document.getElementById('qr-video');
     if (!v || !navigator.mediaDevices) return;
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })

@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-05 Membaca Ulasan Pengguna Ruangan --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan perbaikan bug --}}
 @extends('layouts.app')
 
 @section('content')

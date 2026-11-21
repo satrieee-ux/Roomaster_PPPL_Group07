@@ -1,14 +1,18 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-17 Memeriksa Notifikasi Pemberitahuan --}}
 {{-- Kartu notifikasi. type = notifikasi.kategori: peminjaman | pesan | laporan | sistem.
      actions: [['label'=>'View Bookings','href'=>'/bookings']] (tanpa id entitas, guide 5.9).
      read=false -> kartu ditandai belum dibaca. --}}
 @props(['type' => 'sistem', 'title', 'time', 'message', 'actions' => [], 'read' => true])
 @php
+// notifikasi.kategori -> [ikon, warna lingkaran ikon].
 $map = [
   'peminjaman' => ['calendar-check',  'bg-primary-100 text-primary-500'],
   'pesan'      => ['messages-square', 'bg-secondary-100 text-secondary-500'],
   'laporan'    => ['alert-circle',    'bg-warning-100 text-warning-500'],
   'sistem'     => ['bell',            'bg-grey-200 text-grey-500'],
 ];
+// Kategori yang tidak dikenal jatuh ke gaya 'sistem'.
 [$icon, $cls] = $map[$type] ?? $map['sistem'];
 @endphp
 

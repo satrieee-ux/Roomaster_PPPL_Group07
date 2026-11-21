@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Header putih Mobile TopAppBar: back + judul + ikon kanan (default home). Sticky, tinggi 112px.
      <x-header_topappbar title="Reporting" endIcon="x" :endUrl="url('/qreporting')" /> --}}
 @props([

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 
 {{-- Status pill yang mengikuti ENUM peminjaman dan laporan pada DDL Roomaster. --}}
 @props([
@@ -6,6 +8,7 @@
 ])
 
 @php
+    // status (ENUM peminjaman dan laporan) -> [label, warna pill, ikon].
     $map = [
         'draft' => [
             'Draft',
@@ -59,10 +62,12 @@
         ],
     ];
 
+    // Booking 'disetujui' yang jadwalnya belum lewat ditampilkan sebagai pill 'Upcoming'.
     $displayStatus = ($status === 'disetujui' && $isUpcoming)
         ? 'upcoming'
         : $status;
 
+    // Status yang tidak dikenal: tampilkan nama status apa adanya dengan gaya netral.
     [$label, $cls, $icon] = $map[$displayStatus]
         ?? [$displayStatus, 'bg-primary-50 text-primary-500', 'alert-circle'];
 @endphp

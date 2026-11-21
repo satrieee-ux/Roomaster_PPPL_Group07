@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-20 Melihat Ringkasan & History Laporan --}}
 {{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disesuaikan dengan gambar "Melihat history laporan" --}}
 {{--
   Kartu laporan (Reports History). Sumber: laporan_kerusakan + data_ruangan.

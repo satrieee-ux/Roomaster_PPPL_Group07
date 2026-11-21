@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 
 {{-- Tabs: variant line atau pill. Mendukung items dan tabs. --}}
 @props([
@@ -8,6 +10,7 @@
 ])
 
 @php
+    // Samakan bentuk tab: bisa array ['label','href','icon'] atau string biasa (href '#').
     $tabItems = collect($tabs ?? $items)
         ->map(function ($item) {
             if (is_array($item)) {
@@ -34,6 +37,7 @@
         @foreach($tabItems as $index => $item)
             @php
                 $icon = $item['icon'];
+                // Tab aktif: $active berupa angka = indeks tab; selain itu dicocokkan dengan label tab.
                 $isActive = is_numeric($active) ? $index === (int) $active : $item['label'] === $active;
             @endphp
 
@@ -58,6 +62,7 @@
     ]) }}>
         @foreach($tabItems as $index => $item)
             @php
+                // Tab aktif: $active berupa angka = indeks tab; selain itu dicocokkan dengan label tab.
                 $isActive = is_numeric($active) ? $index === (int) $active : $item['label'] === $active;
             @endphp
 

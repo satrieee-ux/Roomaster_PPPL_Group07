@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Avatar bulat. src = path relatif (foto_profil), fallback images/avatar.jpg.
      online = titik hijau di pojok kanan bawah, sesuai gambar referensi. --}}
 @props(['src' => null, 'name' => '', 'size' => 'size-10', 'online' => false])

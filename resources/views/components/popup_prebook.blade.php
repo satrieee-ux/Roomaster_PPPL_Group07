@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-11 Memesan Ruangan --}}
 
 {{-- Konfirmasi sebelum mengirim pengajuan peminjaman.
      submitUrl harus berasal dari route POST backend yang valid.
@@ -29,6 +31,7 @@
 
     <x-slot:actions>
         @if($submitUrl)
+            {{-- Tombol Proceed: POST ke $submitUrl untuk mengirim pengajuan peminjaman (PeminjamanController@simpanPengajuan). --}}
             <form method="POST" action="{{ $submitUrl }}" class="w-full">
                 @csrf
 

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama) --}}
 {{-- Header screen. variant: topbar (back + judul + home, lihat "Notifications") | home (gelap, sapaan + search).
      Home: tinggi 224 = navbar atas 108 + sapaan 28 + gap 12 + search 50 + bawah 26.
      Teks sapaan (urutan prioritas):

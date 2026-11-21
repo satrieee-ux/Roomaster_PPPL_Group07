@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-13 Check-Out Ruangan --}}
 
 {{-- Popup konfirmasi checkout.
      Mengirim form checkout-form setelah backend siap.

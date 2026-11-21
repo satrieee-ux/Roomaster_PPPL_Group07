@@ -1,5 +1,9 @@
 <?php
 
+// Dibuat oleh: Satya Azka Aqilla (5026241199)
+// UC-02 Melihat Dashboard (Rooms), UC-03 Mencari Ruangan & Hasil Pencarian, UC-04 Memeriksa Informasi & Fasilitas Ruangan, UC-05 Membaca Ulasan (method reviews, Thalia)
+// Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), penyesuaian data untuk view Rooms dan hasil pencarian
+
 namespace App\Http\Controllers;
 
 use App\Models\Fasilitas;

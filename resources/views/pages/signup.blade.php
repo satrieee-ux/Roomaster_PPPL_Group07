@@ -1,9 +1,12 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 @extends('layouts.app')
 
 @section('content')
 {{-- Sign Up: Nama, NRP, Email ITS -> mahasiswa_its. Username, Password -> profil_pengguna.
      Field Birth date dan Phone dihapus karena tidak ada kolomnya di DDL. --}}
 <x-auth_page active="signup" padBottom="pb-14">
+  {{-- Form pendaftaran: POST /signup (AkunController@register). Pesan error validasi tampil per kolom lewat x-form_field. --}}
   <form action="{{ url('/signup') }}" method="POST" class="flex flex-col">
     @csrf
     <div class="flex flex-col gap-4">

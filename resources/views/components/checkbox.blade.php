@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-13 Check-Out Ruangan; juga dipakai di UC-03 --}}
 {{-- Checkbox kotak 24px. side: left (kotak di kiri) | right (kotak di kanan). muted: teks abu (checklist). --}}
 @props(['name' => null, 'value' => null, 'label' => '', 'checked' => false, 'side' => 'left', 'muted' => false])
 

@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-12 Check-In Ruangan; juga dipakai di UC-13 --}}
 {{-- Disalin apa adanya dari repo lama. HANYA TAMPILAN: foto tidak dikirim/disimpan ke database
      (keputusan DDL no. 8: foto, catatan, dan checklist check-in/check-out tidak disimpan). --}}
 {{-- Area unggah foto: kartu kamera 320px + 2 kotak 96px (thumbnail, tambah). --}}

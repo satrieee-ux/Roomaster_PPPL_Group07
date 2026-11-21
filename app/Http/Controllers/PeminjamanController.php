@@ -1,6 +1,7 @@
 <?php
 
-// Dibuat oleh: Muhammad Satrio Adjie (5026241065) -- kerangka method sesuai Katalog Penamaan.
+// Dibuat oleh: Muhammad Satrio Adjie (5026241065), kerangka method sesuai Katalog Penamaan.
+// UC yang dicakup: UC-06, UC-07, UC-11, UC-13 (Thalia); UC-08, UC-09, UC-10, UC-12 (Thoriq).
 // Isi method dikerjakan PIC masing-masing; tanda UC-xx (Nama) menunjukkan pemilik isinya.
 
 namespace App\Http\Controllers;
@@ -27,11 +28,14 @@ class PeminjamanController extends Controller
         return $this->tampilkanDaftar('all');
     }
 
+    // UC-07 (Thalia): kategori = active | pending | history (kunci KATEGORI_STATUS).
     public function filterPengajuan(string $kategori)
     {
         return $this->tampilkanDaftar($kategori);
     }
 
+    // Dipakai daftarPengajuan() dan filterPengajuan(): ambil peminjaman milik user, saring per kategori,
+    // ubah tiap baris menjadi props <x-card_booking>, lalu tampilkan pages.daftar_bookings.
     private function tampilkanDaftar(string $kategori)
     {
         $idMahasiswa = (int) Auth::user()->id_mahasiswa;
@@ -76,8 +80,9 @@ class PeminjamanController extends Controller
     // UC-08 (Thoriq) -> pages.booking_isiformulir_peminjaman, pages.booking_pilihtanggal_peminjaman
     public function isiFormulir(int $id) {}
     public function cekKetersediaan(Request $request, int $id) {}
+    // UC-08 (Thoriq): validasi formulir peminjaman. Penyimpanan draft ke tabel peminjaman diisi PIC.
     public function simpanDraft(Request $request, int $id) {
-    // + Satrio: aturan sesuai DDL peminjaman; pesan per kolom tampil di bawah field (x-form_error)
+        // + Satrio: aturan sesuai DDL peminjaman; pesan per kolom tampil di bawah field (x-form_error)
         $request->validate([
             'nama_kegiatan'            => 'required|string|max:150',
             'tujuan'                   => 'required|string',

@@ -1,5 +1,9 @@
 <?php
 
+// Dibuat oleh: Satya Azka Aqilla (5026241199)
+// UC-01 Login MyITS (Sign Up, login, simulasi MyITS), UC-02 Melihat Dashboard (Menu Utama)
+// Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tambah prefix pages. pada view dan perbaikan status booking terdekat di Menu Utama
+
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
@@ -68,6 +72,7 @@ class AkunController extends Controller
         return view('pages.signup');
     }
 
+    // UC-01 (Satya): Sign Up. Validasi, simpan ke mahasiswa_its dan profil_pengguna, lalu langsung login.
     public function register(Request $request)
     {
         $data = $request->validate([

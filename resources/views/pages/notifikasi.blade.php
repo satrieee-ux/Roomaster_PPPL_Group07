@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-17 Memeriksa Notifikasi Pemberitahuan --}}
 @extends('layouts.app')
 
 @section('content')

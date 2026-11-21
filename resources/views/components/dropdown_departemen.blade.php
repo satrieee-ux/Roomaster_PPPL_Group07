@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman --}}
 {{-- Dropdown pilih departemen penyelenggara kegiatan.
      Contoh: <x-dropdown_departemen :value="$peminjaman->departemen_penyelenggara" />
      Nilai yang dipilih dikirim dengan nama input "departemen_penyelenggara"

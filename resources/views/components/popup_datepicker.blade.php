@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-03 Mencari Ruangan (Explore Rooms) & Melihat Hasil Pencarian Ruangan --}}
 {{-- Modal Choose Date (bottom sheet). Hidden input name="date" berisi YYYY-MM-DD.
      Hanya mengembalikan tanggal; aturan "ruangan masih punya slot" ada di RuanganController (searchByDate).
      Tanggal yang sedang aktif (dari URL) langsung terpilih. Kata kunci dan filter ikut dikirim ulang. --}}

@@ -1,5 +1,9 @@
 <?php
 
+// Dibuat oleh: Anastasia Azzahra Rafif (5026241036)
+// UC-17 Memeriksa Notifikasi Pemberitahuan
+// Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tambah prefix pages. pada view
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

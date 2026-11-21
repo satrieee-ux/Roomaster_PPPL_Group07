@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Pesan error satu kolom, ditaruh tepat di bawah kolomnya.
      Contoh: <x-form_error name="judul" />. Wildcard juga bisa: name="bukti.*" --}}
 @props(['name'])

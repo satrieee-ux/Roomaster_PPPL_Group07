@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-11 Memesan Ruangan; juga dipakai di UC-08 --}}
 {{-- Popup "Cancel Booking?". Dibuka dengan data-popup-open="popup-cancelbooking".
      Contoh: <x-popup_cancelbooking :open="false" :yesUrl="route('rooms.detail', $id_ruangan)" />
      yesUrl = tujuan tombol Yes. Di form booking: kembali ke halaman detail ruangan.

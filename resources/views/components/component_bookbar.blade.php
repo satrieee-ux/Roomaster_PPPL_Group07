@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-04 Memeriksa Informasi & Fasilitas Ruangan --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tombol favorit lewat favoriteAction --}}
 
 {{-- BookBar Room Detail.
      Book Now menuju alur pemesanan.
@@ -24,6 +27,7 @@
     </x-button>
 
     @if($favoriteAction)
+        {{-- Tombol favorit: POST ke $favoriteAction (toggleFavorite). Tanpa action, tombol dinonaktifkan. --}}
         <form action="{{ $favoriteAction }}" method="POST">
             @csrf
 

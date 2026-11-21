@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Tombol. variant: primary|secondary|outline|soft|disabled. size: giant|large|medium|small|tiny.
      iconOnly = tombol bulat berisi satu ikon. Contoh:
      <x-button variant="primary" size="small" iconRight="arrow-right">Book Now</x-button> --}}

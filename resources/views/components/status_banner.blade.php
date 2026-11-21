@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-06 Melihat Riwayat Aktivitas dan Booking Summary; juga dipakai di UC-20 --}}
 
 {{-- Banner status Roomaster sesuai ENUM DDL.
      Mendukung tampilan banner dan ikon lingkaran.
@@ -11,6 +13,7 @@
 ])
 
 @php
+    // status (ENUM peminjaman) -> [label, warna banner, warna teks "Updated", ikon].
     $map = [
         'draft' => [
             'Draft',
@@ -74,11 +77,13 @@
         ],
     ];
 
+    // isUpcoming dipastikan boolean (bisa datang sebagai string dari controller).
     $isUpcoming = filter_var(
         $isUpcoming,
         FILTER_VALIDATE_BOOLEAN
     );
 
+    // Booking 'disetujui' yang jadwalnya belum lewat ditampilkan sebagai 'upcoming'.
     $displayStatus = (
         $status === 'disetujui' && $isUpcoming
     ) ? 'upcoming' : $status;

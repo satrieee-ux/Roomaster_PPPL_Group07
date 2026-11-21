@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-19 Melaporkan Informasi Kerusakan Fasilitas --}}
 @extends('layouts.app')
 
 @section('content')

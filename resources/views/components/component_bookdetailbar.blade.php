@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman --}}
 {{-- BookDetailBar: bar bawah pada form booking langkah Details.
      Contoh: <x-component_bookdetailbar :active="true" />
      active = false → tombol Check Availability abu-abu (belum bisa diklik).

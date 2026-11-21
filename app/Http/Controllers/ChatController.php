@@ -1,5 +1,9 @@
 <?php
 
+// Dibuat oleh: Anastasia Azzahra Rafif (5026241036)
+// UC-15 Mengirim Pesan (buka percakapan), UC-16 Melihat Daftar Percakapan
+// Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tambah prefix pages. pada view
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Carbon;
@@ -8,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
+    // id mahasiswa yang sedang login (asumsi sama dengan LaporanController).
     private function mahasiswaId(): int
     {
         return (int) Auth::user()->id_mahasiswa;   // ASSUMPTION: lihat LaporanController

@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-07 Memantau Status Pengajuan; juga dipakai di UC-02 --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan perbaikan bug --}}
 {{-- Card booking sesuai DDL Roomaster.
      Data disiapkan oleh controller dari v_peminjaman_tampil dan relasi data_ruangan.
      Ukuran dari gambar referensi: foto 80px, baris isi min 100px, tombol tiny.
@@ -18,10 +21,13 @@
 ])
 
 @php
+    // isUpcoming bisa datang sebagai string ("1"/"true") dari controller, jadi dipastikan boolean.
     $isUpcoming = filter_var($isUpcoming, FILTER_VALIDATE_BOOLEAN);
 
+    // Lokasi dipakai bila ada; kalau tidak, tampilkan departemen.
     $displayLocation = $location ?? $department;
 
+    // Tombol utama kartu: 'Check-In' untuk booking disetujui yang akan datang, 'Continue' untuk draft. Status lain tanpa tombol utama.
     $primary = null;
 
     if ($status === 'disetujui' && $isUpcoming) {

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 {{-- Kerangka Login/Sign Up: latar statis (tidak ikut scroll), logo, judul, tab Log In|Sign Up, kartu putih (slot).
      padBottom = kelas padding bawah kartu, mis. padBottom="pb-14". Latar: public/images/bg/auth.jpg --}}
 @props(['active' => 'login', 'padBottom' => 'pb-8'])

@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-14 Memberikan Review & Rating; juga dipakai di UC-06, UC-13 --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tambah submitUrl untuk form review --}}
 
 {{-- Popup UC-14: memberikan rating dan komentar.
      submitUrl harus merupakan endpoint POST ulasan yang valid.
@@ -16,6 +19,7 @@
         Keep your messages short, but make sure they cover everything you need to say.
     </x-slot:body>
 
+    {{-- Form review: POST ke $submitUrl (UlasanController@addReview). Field: rating (1-5) dan komentar. --}}
     <form
         action="{{ $submitUrl ?? '#' }}"
         method="POST"
@@ -84,6 +88,8 @@
 </x-popup>
 
 <script>
+// Rating bintang: klik bintang ke-N mengisi input rating dengan N,
+// bintang 1..N diberi warna aktif dan sisanya abu-abu.
 document.querySelectorAll('#{{ $id }} [data-rating]').forEach(function (box) {
     var input = box.parentElement.querySelector('input[name="rating"]');
 

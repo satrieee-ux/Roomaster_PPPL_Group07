@@ -1,7 +1,10 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama); juga dipakai di UC-07 --}}
 {{-- Navbar bawah (sticky). 5 item: Home, Rooms, QReport, Scheduled, Profile.
      active: home|rooms|qreport|scheduled|profile. Tinggi 77px (pad bawah 8) sesuai spec. --}}
 @props(['active' => 'home'])
 @php
+// key => [label, ikon, URL]. Item yang menyala ditentukan prop 'active'.
 $items = [
   'home'      => ['Home',      'home',           '/home'],
   'rooms'     => ['Rooms',     'door-open',      '/rooms'],

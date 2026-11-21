@@ -1,4 +1,5 @@
 {{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman --}}
 {{-- Sheet Choose Time. Dibuka dengan atribut data-popup-open="popup-waktu".
      Contoh: <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :booked="$jam_terpakai" :selected="[15, 16]" />
      room     = data_ruangan.kode_ruangan
@@ -12,6 +13,7 @@
            (dikerjakan nanti bersama endpoint Satrio saat Check Availability diklik). --}}
 @props(['id' => 'popup-waktu', 'room' => '—', 'dateLabel' => '—', 'booked' => [], 'selected' => [], 'open' => false])
 @php
+// Kelompok jam per sesi: [nama sesi, ikon, daftar jam]. Jam operasional 08.00 - 19.00.
 $groups = [
   ['Morning',   'sunrise', [8, 9, 10, 11]],
   ['Afternoon', 'sun',     [12, 13, 14, 15]],

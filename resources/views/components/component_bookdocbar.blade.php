@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-09 Mengunggah Dokumen Surat Peminjaman; juga dipakai di UC-08 --}}
 {{-- BookDocBar: bar bawah dengan satu tombol Continue.
      Contoh: <x-component_bookdocbar :active="true" :href="url('/booking/1/ringkasan')" />
      active = false → tombol abu-abu (belum bisa diklik).

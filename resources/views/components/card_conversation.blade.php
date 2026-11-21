@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-16 Melihat Daftar Percakapan --}}
 {{-- Item daftar percakapan: avatar, nama, cuplikan 2 baris, jam, badge belum dibaca.--}}
 @props(['name', 'preview' => '', 'time' => '', 'unread' => 0, 'href' => '#', 'avatar' => null])
 

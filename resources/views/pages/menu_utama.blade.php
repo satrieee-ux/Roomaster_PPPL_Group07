@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama) --}}
 @extends('layouts.app')
 
 @section('content')
@@ -7,6 +9,7 @@
      $rekomendasi = 4 ruangan dengan rating tertinggi (Recommended)
      Quick Book tetap statis (tidak ada di DDL). Nama & avatar header otomatis dari akun login. --}}
 @php
+  // Pintasan kategori Quick Book: [label, ikon]. Statis, tidak ada di DDL.
   $quickBook = [
     ['Academic',    'globe'],
     ['Meetings',    'user-round'],

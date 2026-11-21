@@ -1,10 +1,15 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-07 Memantau Status Pengajuan --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan tab filter lewat route --}}
 
 @extends('layouts.app')
 
 @section('content')
 @php
+    // Tab aktif dikirim controller (all | active | pending | history); bawaan 'all'.
     $activeTab = $activeTab ?? 'all';
 
+    // Nama tab -> indeks tab untuk komponen tabs.
     $tabNames = [
         'all' => 0,
         'active' => 1,
@@ -12,6 +17,7 @@
         'history' => 3,
     ];
 
+    // Tiap tab memanggil route filter (PeminjamanController@filterPengajuan).
     $tabs = [
         ['label' => 'All', 'href' => route('bookings')],
         ['label' => 'Active', 'href' => route('bookings.filter', 'active')],
@@ -20,6 +26,7 @@
     ];
 
     $activeIndex = $tabNames[$activeTab] ?? 0;
+    // Pastikan $bookings selalu berupa koleksi, walau controller belum mengirim data.
     $bookings = collect($bookings ?? []);
 @endphp
 

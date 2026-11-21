@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 {{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), pesan error per kolom dan toggle mata --}}
 {{-- Kolom input berlabel. type=password otomatis dapat tombol mata (matikan dengan :toggle="false").
      icon: ikon kanan. Slot "prefix": isi kiri (mis. kode negara).
@@ -13,6 +15,7 @@
            aria-invalid="{{ $pesan ? 'true' : 'false' }}"
            class="min-w-0 flex-1 bg-transparent text-[14px] leading-5 font-medium text-grey-800 outline-hidden placeholder:text-grey-500">
     @if($type === 'password' && $toggle)
+      {{-- Tombol mata: ubah type input password ke text dan sebaliknya lalu tukar ikon eye-off / eye. --}}
       <button type="button" aria-label="Tampilkan password" class="shrink-0 text-grey-500"
         onclick="var i=this.closest('label').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelectorAll('svg').forEach(function(s){s.classList.toggle('hidden')})">
         <x-icon name="eye-off" :size="20" />

@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama); juga dipakai di UC-03 --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan perbaikan bug --}}
 {{-- Kartu ruangan, isi dari satu baris data_ruangan.
      Contoh: <x-card_room :id="$r->id" :kode_ruangan="$r->kode_ruangan" :lokasi="$r->lokasi"
                           :kapasitas="$r->kapasitas" :foto_ruangan="$r->foto_ruangan" :favorit="$r->is_favorit" />
@@ -38,6 +41,7 @@ $src   = $foto_ruangan ? asset($foto_ruangan) : asset('images/rooms/building.jpg
       </div>
     </a>
     @if($id)
+      {{-- Tombol hati: POST /rooms/{id}/favorite (RuanganController@toggleFavorite) menyimpan atau menghapus favorit. --}}
       <form method="POST" action="{{ url('/rooms/'.$id.'/favorite') }}" class="shrink-0">
         @csrf
         <button type="submit" aria-label="Favorit" class="flex size-6 items-center justify-center rounded-full bg-primary-50/40">
@@ -62,6 +66,7 @@ $src   = $foto_ruangan ? asset($foto_ruangan) : asset('images/rooms/building.jpg
           'text-[16px] leading-6' => ! $large,
         ])>{{ $kode_ruangan }}</h4>
         @if($id)
+          {{-- Tombol hati: POST /rooms/{id}/favorite (RuanganController@toggleFavorite) menyimpan atau menghapus favorit. --}}
           <form method="POST" action="{{ url('/rooms/'.$id.'/favorite') }}" class="shrink-0">
             @csrf
             <button type="submit" aria-label="Favorit" class="flex size-6 items-center justify-center rounded-full bg-primary-50/40">

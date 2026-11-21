@@ -1,7 +1,10 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-15 Mengirim Pesan --}}
 {{-- ChatBar: bar pengetik sticky bawah. Tanpa ikon klip (guide 5.7).
      Input bernama isi_pesan = kolom pesan.isi_pesan. --}}
 @props(['action' => '#', 'placeholder' => 'Type a message...'])
 
+{{-- Kirim pesan: POST ke $action (PesanController@addMessage). Isinya diambil dari input isi_pesan. --}}
 <form action="{{ $action }}" method="POST"
       {{ $attributes->class(['sticky bottom-0 z-30 flex h-[100px] w-full shrink-0 items-start gap-4 rounded-t-[32px] bg-primary-900 px-6 pt-5']) }}>
   @csrf

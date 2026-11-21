@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 @extends('layouts.app')
 
 @section('content')

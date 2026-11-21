@@ -1,11 +1,13 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-06 Melihat Riwayat Aktivitas dan Booking Summary --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi --}}
 @extends('layouts.app')
 
 @section('content')
 {{-- UC-06 Booking Summary. Data dari PeminjamanController@riwayat:
      $booking  = array (id, code, status, isUpcoming, updated, room, location, capacity, facilities[icon,label],
                  date, time, activity_name, description, documents[nama_berkas, ukuran_berkas, status])
-     $riwayat  = baris riwayat_peminjaman (opsional, untuk Recent Activity)
-     Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi. --}}
+     $riwayat  = baris riwayat_peminjaman (opsional, untuk Recent Activity) --}}
 @php
     $booking = $booking ?? [];
     $status  = data_get($booking, 'status', 'pending');

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-19 Melaporkan Informasi Kerusakan Fasilitas --}}
 {{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), pesan error per kolom dan penyesuaian gambar referensi --}}
 @extends('layouts.app')
 
@@ -5,6 +7,8 @@
 <div class="flex min-h-full flex-col bg-grey-100">
   <x-header_topappbar title="Reporting" :back="url('/qreporting')" endIcon="x" :endUrl="url('/qreporting')" />
 
+  {{-- Form laporan: POST ke report.store (LaporanController@simpanLaporan). Tombol dengan aksi=draft menyimpan draft, --}}
+  {{-- aksi=kirim mengirim laporan. id_draft hanya ada saat melanjutkan draft. --}}
   <form id="report-form" action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-1 flex-col">
     @csrf
     <input type="hidden" name="id_ruangan" value="{{ $location['id'] }}">

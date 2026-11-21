@@ -1,3 +1,6 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-13 Check-Out Ruangan --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan URL submit check-out --}}
 
 @extends('layouts.app')
 
@@ -25,6 +28,7 @@
         :showHome="false"
     />
 
+    {{-- Form check-out: POST ke $checkoutSubmitUrl. Field: checklist[] (item yang dicentang) dan notes (catatan). --}}
     <form
         id="checkout-form"
         method="POST"

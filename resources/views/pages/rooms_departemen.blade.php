@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama) --}}
 @extends('layouts.app')
 
 @section('content')

@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-15 Mengirim Pesan --}}
 {{-- Header ruang chat: back + avatar + nama + menu. Sticky, tinggi 124px.
      response = teks balasan rata-rata, contoh "Average Response: 2h" (opsional; dari informasi_tu.rata_respon_menit).
      Titik hijau online statis (sesuai Figma). --}}

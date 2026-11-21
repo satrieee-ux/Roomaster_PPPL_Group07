@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-09 Mengunggah Dokumen Surat Peminjaman --}}
 {{-- Slot unggah satu dokumen peminjaman: kotak "Upload File" ↔ kartu berkas (card_file).
      Contoh:
        <x-doc_upload jenis_dokumen="ktm_ktp" :dokumen="$ktm" />

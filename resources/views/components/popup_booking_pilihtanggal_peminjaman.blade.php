@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman --}}
 {{-- Sheet "Choose Date" untuk form booking. Dibuka lewat data-popup-open="popup-tanggal".
      Contoh: <x-popup_booking_pilihtanggal_peminjaman :value="$peminjaman->tanggal_pakai" />
      value = tanggal terpilih berformat Y-m-d (kolom peminjaman.tanggal_pakai), boleh null.

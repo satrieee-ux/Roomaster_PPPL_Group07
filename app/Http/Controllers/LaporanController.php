@@ -1,5 +1,9 @@
 <?php
 
+// Dibuat oleh: Anastasia Azzahra Rafif (5026241036)
+// UC-18 Scan QR Ruangan, UC-19 Melaporkan Informasi Kerusakan Fasilitas, UC-20 Melihat Ringkasan & History Laporan
+// Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), tambah prefix pages. pada view dan validasi form laporan
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

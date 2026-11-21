@@ -14,6 +14,7 @@
 
      + Satrio: pesan error validasi tampil di bawah slot masing-masing (x-form_error di doc_upload,
        kuncinya ktm_ktp dan surat_kegiatan), bukan satu blok di bawah. Form diberi novalidate. --}}
+{{-- Diperbaiki oleh: Muhammad Satrio Adjie (5026241065), disamakan dengan gambar referensi dan perbaikan bug --}}
 @extends('layouts.app')
 
 @section('content')

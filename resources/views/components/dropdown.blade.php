@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-08 Mengisi Form Peminjaman --}}
 {{-- Dropdown kustom (pengganti <select> biasa supaya tampilannya sesuai desain).
      Contoh: <x-dropdown name="departemen_penyelenggara" :options="$list" :value="$terpilih" placeholder="Select" />
      options boleh berupa:

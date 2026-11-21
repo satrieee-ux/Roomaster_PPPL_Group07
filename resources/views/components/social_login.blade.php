@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 {{-- "Or login with" + (opsional) tombol MyITS + Google & Apple. myits="MyITS Account" untuk menampilkan tombol MyITS. --}}
 @props(['myits' => null])
 

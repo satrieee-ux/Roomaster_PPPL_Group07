@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-07 Memantau Status Pengajuan --}}
 {{-- Header gelap ringkas (tanpa sapaan & search). Dipakai: Your Bookings. Sticky.
      Avatar otomatis dari mahasiswa_its.foto_profil akun yang login. Titik "online" dihapus. --}}
 @props(['name' => null, 'avatar' => null, 'searchUrl' => '/rooms/search', 'chatUrl' => '/chat', 'notifUrl' => '/notifikasi'])

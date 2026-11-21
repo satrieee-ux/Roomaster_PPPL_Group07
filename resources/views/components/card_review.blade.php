@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-05 Membaca Ulasan Pengguna Ruangan --}}
 {{-- Kartu ulasan: avatar + nama + tanggal + bintang, lalu komentar.
      Pakai: <x-card_review name="Nabila Putri" date="23 June 2026" :rating="5" comment="..." /> --}}
 @props(['name', 'date', 'comment', 'rating' => 5, 'avatar' => null])

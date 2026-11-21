@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama); juga dipakai di UC-03 --}}
 {{-- Satu bagian berjudul berisi kartu ruangan.
      Contoh: <x-room_section title="Recommended" :rooms="$rekomendasi" layout="stack" />
      rooms     = koleksi model Ruangan (data_ruangan). Tiap ruangan sebaiknya sudah diberi

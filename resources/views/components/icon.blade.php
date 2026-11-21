@@ -1,6 +1,9 @@
+{{-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) --}}
+{{-- Komponen bersama (dipakai lintas banyak UC) --}}
 {{-- Ikon Lucide inline. Pakai: <x-icon name="home" class="size-6" /> --}}
 @props(['name', 'size' => 24, 'stroke' => 2])
 @php
+// Daftar ikon Lucide: nama => isi SVG. Untuk ikon baru, tambahkan satu baris di sini.
 $icons = [
   'home' => '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
   'door-open' => '<path d="M11 20H2"/><path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.562z"/><path d="M11 4H8a2 2 0 0 0-2 2v14"/><path d="M14 12h.01"/><path d="M22 20h-3"/>',

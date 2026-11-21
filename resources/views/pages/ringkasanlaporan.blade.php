@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-20 Melihat Ringkasan & History Laporan --}}
 @extends('layouts.app')
 
 @section('content')

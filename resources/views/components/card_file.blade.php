@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Muhammad Trinanda Thoriq (5026241124) --}}
+{{-- UC-10 Memeriksa Kembali Dokumen Peminjaman; juga dipakai di UC-06, UC-09, UC-11 --}}
 {{-- Kartu berkas terunggah, menampilkan satu baris tabel dokumen_peminjaman.
      Contoh: <x-card_file :nama_berkas="$dok->nama_berkas" :ukuran_berkas="$dok->ukuran_berkas" :status="$dok->status" />
      nama_berkas   = nama asli file (VARCHAR 255)

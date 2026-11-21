@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Thalia Harnum Fathina (5026241201) --}}
+{{-- UC-06 Melihat Riwayat Aktivitas dan Booking Summary; juga dipakai di UC-11, UC-19, UC-20 --}}
 
 {{-- Timeline aktivitas untuk booking dan laporan.
      Booking: menerima data riwayat_peminjaman.
@@ -10,9 +12,11 @@
 ])
 
 @php
+    // Dua sumber data: $riwayat (baris riwayat_peminjaman dari database) atau $items (array jadi dari halaman).
     $timelineItems = [];
 
     if ($riwayat !== null) {
+        // Urutkan dari yang paling lama. Baris terakhir = tahap yang sedang berjalan (ikon jam); sisanya selesai (ikon centang).
         $records = collect($riwayat)
             ->sortBy('waktu')
             ->values();
@@ -24,6 +28,7 @@
             $keterangan = data_get($record, 'keterangan');
             $waktu = data_get($record, 'waktu');
 
+            // Nilai tahapan (ENUM status peminjaman) -> judul yang tampil di layar.
             $labels = [
                 'draft' => 'Draft',
                 'pending' => 'Pending Review',
@@ -45,6 +50,7 @@
                 'title' => $labels[$tahapan] ?? ucfirst(
                     str_replace('_', ' ', $tahapan)
                 ),
+                // Deskripsi memakai keterangan; bila kosong, tampilkan waktu kejadian.
                 'desc' => $keterangan
                     ?: ($waktu
                         ? \Illuminate\Support\Carbon::parse($waktu)
@@ -53,6 +59,7 @@
             ];
         }
     } else {
+        // Tanpa $riwayat: pakai array $items apa adanya.
         $timelineItems = $items;
     }
 @endphp

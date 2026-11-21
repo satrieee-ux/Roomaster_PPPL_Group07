@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Anastasia Azzahra Rafif (5026241036) --}}
+{{-- UC-15 Mengirim Pesan --}}
 {{-- Gelembung chat, teks saja (tanpa gambar, guide 5.7). side: in (masuk, abu) | out (keluar, gelap).
      Teks 14/20 dan padding 16 sesuai gambar referensi. Titik hijau online statis (sesuai Figma). --}}
 @props(['side' => 'in', 'text' => '', 'time' => '', 'avatar' => null])

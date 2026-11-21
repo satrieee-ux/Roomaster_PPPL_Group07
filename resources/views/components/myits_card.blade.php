@@ -1,3 +1,5 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-01 Login MyITS --}}
 {{-- Kartu putih di tengah layar untuk alur myITS SSO.
      Latar cukup gradasi biru. Gambar bg/myits.jpg tidak dipakai lagi karena di dalamnya
      sudah ada gambar kartu login, sehingga terlihat "kartu dobel" di belakang. --}}

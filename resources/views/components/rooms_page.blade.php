@@ -1,6 +1,9 @@
+{{-- Dibuat oleh: Satya Azka Aqilla (5026241199) --}}
+{{-- UC-02 Melihat Dashboard (Menu Utama) --}}
 @props(['active' => 0])
 
 @php
+  // Tab kategori halaman Rooms. Prop 'active' = indeks tab yang menyala (0 All, 1 SKPB, 2 Departemen, 3 Favorites).
   $tabs = [
     ['label' => 'All',        'href' => url('/rooms')],
     ['label' => 'SKPB',       'href' => url('/rooms/skpb')],
