@@ -3,7 +3,7 @@
 @props(['name', 'preview' => '', 'time' => '', 'unread' => 0, 'href' => '#', 'avatar' => null])
 
 <a href="{{ $href }}" {{ $attributes->class(['flex items-center gap-3 rounded-xl bg-grey-100 px-4 py-3 shadow-card']) }}>
-  <img src="{{ asset($avatar ?? 'images/avatar.jpg') }}" alt="{{ $name }}" class="size-12 shrink-0 rounded-full bg-primary-100 object-cover">
+  <x-avatar :src="$avatar" :name="$name" size="size-12" />
 
   <div class="flex min-w-0 flex-1 flex-col">
     <span class="truncate text-[16px] leading-6 font-semibold text-grey-800">{{ $name }}</span>
