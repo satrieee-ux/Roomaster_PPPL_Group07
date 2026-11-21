@@ -264,8 +264,10 @@ CREATE TABLE percakapan (
     CONSTRAINT fk_percakapan_mahasiswa_1 FOREIGN KEY (id_mahasiswa_1)
         REFERENCES mahasiswa_its (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT fk_percakapan_mahasiswa_2 FOREIGN KEY (id_mahasiswa_2)
-        REFERENCES mahasiswa_its (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT ck_percakapan_peserta CHECK (id_mahasiswa_1 < id_mahasiswa_2)  -- simpan id kecil di kolom 1, cegah pasangan dobel/terbalik
+        REFERENCES mahasiswa_its (id) ON UPDATE CASCADE ON DELETE CASCADE
+    -- Aturan "id kecil di kolom 1" (id_mahasiswa_1 < id_mahasiswa_2, cegah pasangan dobel/terbalik)
+    -- TIDAK bisa berupa CHECK: MySQL 8 menolak CHECK pada kolom yang ikut FK dengan
+    -- referential action (error 3823). Dijaga oleh trigger trg_percakapan_bi/bu di 03_triggers.sql.
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
