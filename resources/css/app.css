@@ -5,7 +5,121 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* =====================================================================
+   Design system Roomaster (Tailwind v4).
+   Warna dipindah dari tailwind.config.js repo lama ke blok @theme ini.
+   Contoh pemakaian: bg-primary-900, text-grey-800, bg-success-50, shadow-card.
+   ===================================================================== */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Primary (biru) */
+    --color-primary-50: #B5D7FF;
+    --color-primary-100: #9AC8FF;
+    --color-primary-200: #74B1F2;
+    --color-primary-300: #569FE2;
+    --color-primary-400: #4895C2;
+    --color-primary-500: #3B7BA0;
+    --color-primary-600: #2E6280;
+    --color-primary-700: #254F67;
+    --color-primary-800: #153343;
+    --color-primary-900: #112A35;
+
+    /* Secondary (oranye) */
+    --color-secondary-50: #FFE1C1;
+    --color-secondary-100: #FFD2A3;
+    --color-secondary-200: #FFC385;
+    --color-secondary-300: #FEB161;
+    --color-secondary-400: #EE914E;
+    --color-secondary-500: #D97A47;
+    --color-secondary-600: #C66531;
+    --color-secondary-700: #A35139;
+    --color-secondary-800: #85422E;
+    --color-secondary-900: #773825;
+
+    /* Grey (abu-abu) */
+    --color-grey-50: #F9FAFB;
+    --color-grey-100: #F3F4F6;
+    --color-grey-200: #E5E7EA;
+    --color-grey-300: #D2D5DB;
+    --color-grey-400: #9EA2AE;
+    --color-grey-500: #6D717F;
+    --color-grey-600: #4D5461;
+    --color-grey-700: #394050;
+    --color-grey-800: #212936;
+    --color-grey-900: #131927;
+
+    /* Status. Nilai 50/500/800 dari config lama (green/red/yellow).
+       Komponen memakai nama success/danger/warning, jadi namanya disamakan di sini. */
+    --color-success-50: #E0F8E6;
+    --color-success-100: #C2EFCC;
+    --color-success-300: #85D898;
+    --color-success-400: #64C77A;
+    --color-success-500: #43B75D;
+    --color-success-800: #256533;
+
+    --color-danger-50: #FCE5E5;
+    --color-danger-100: #F9C9C8;
+    --color-danger-300: #F48D8A;
+    --color-danger-400: #F16965;
+    --color-danger-500: #EE443F;
+    --color-danger-800: #832523;
+
+    --color-warning-50: #FFF7E6;
+    --color-warning-100: #FFEBC2;
+    --color-warning-300: #FFCC66;
+    --color-warning-400: #FFBB33;
+    --color-warning-500: #FFAA00;
+    --color-warning-800: #8C5E00;
+
+    /* Bayangan kartu (dipakai di card, header, popup) */
+    --shadow-card: 0 4px 16px rgba(17, 42, 53, 0.08);
+}
+
+@layer base {
+    /* Tailwind v4 memakai warna garis currentColor. Disamakan dengan v3 (abu muda). */
+    *, ::before, ::after, ::backdrop {
+        border-color: var(--color-grey-200);
+    }
+
+    html, body {
+        font-family: var(--font-sans);
+        @apply bg-grey-50 antialiased text-grey-800;
+    }
+
+    button:not(:disabled), [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+
+    /* --- HEADLINE (ExtraBold 800) --- */
+    h1, .h1 { font-size: 48px; line-height: 58px; font-weight: 800; }
+    h2, .h2 { font-size: 40px; line-height: 48px; font-weight: 800; }
+    h3, .h3 { font-size: 32px; line-height: 38px; font-weight: 800; }
+    h4, .h4 { font-size: 28px; line-height: 34px; font-weight: 800; }
+    h5, .h5 { font-size: 24px; line-height: 28px; font-weight: 800; }
+
+    /* --- SUBTITLE (SemiBold 600) --- */
+    .subtitle-1 { font-size: 18px; line-height: 28px; font-weight: 600; }
+    .subtitle-2 { font-size: 16px; line-height: 24px; font-weight: 600; }
+
+    /* --- BODY --- */
+    .body-1 { font-size: 16px; line-height: 24px; font-weight: 400; }
+    .body-2 { font-size: 16px; line-height: 24px; font-weight: 600; }
+    .body-3 { font-size: 14px; line-height: 20px; font-weight: 400; }
+    .body-4 { font-size: 14px; line-height: 20px; font-weight: 600; }
+
+    /* --- CAPTION --- */
+    .caption-1 { font-size: 12px; line-height: 16px; font-weight: 400; }
+    .caption-2 { font-size: 12px; line-height: 16px; font-weight: 500; }
+    .caption-3 { font-size: 10px; line-height: 14px; font-weight: 400; }
+
+    /* --- LABEL & BUTTON --- */
+    .label-text { font-size: 12px; line-height: 16px; font-weight: 500; }
+    button, .btn { font-weight: 600; }
+}
+
+/* Sembunyikan scrollbar tapi tetap bisa digulir */
+@utility no-scrollbar {
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
 }
