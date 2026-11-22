@@ -149,7 +149,7 @@ $merah = 'border-danger-500!'; // bingkai merah saat kolom punya error
   </form>
 
   {{-- Popup pendukung form --}}
-  <x-popup_booking_pilihtanggal :value="$tanggalIso" />
+  <x-popup_booking_pilihtanggal_peminjaman :value="$tanggalIso" />
   <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :booked="$jam_terpakai" :selected="$jamTerpilih" />
   <x-popup_cancelbooking :open="false" :yesUrl="route('rooms.detail', $id_ruangan)" />
 </div>
