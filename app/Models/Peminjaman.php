@@ -1,4 +1,3 @@
-<!-- Dibuat oleh: Muhammad Satrio Adjie (5026241065) -->
 <?php
 
 namespace App\Models;

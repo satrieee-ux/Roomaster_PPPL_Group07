@@ -9,11 +9,6 @@
 @props(['active' => false])
 
 <div {{ $attributes->class(['sticky bottom-0 z-30 flex h-[100px] w-full shrink-0 items-start gap-4 rounded-t-[32px] bg-primary-900 px-6 pt-5']) }}>
-  {{-- Ikon keranjang (hiasan) --}}
-  <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-500 text-white">
-    <x-icon name="shopping-cart" :size="20" />
-  </span>
-
   {{-- Tombol Cancel: membuka popup konfirmasi batal booking --}}
   <x-button type="button" variant="soft" size="medium" class="w-[101px] shrink-0" data-popup-open="popup-cancelbooking">Cancel</x-button>
 

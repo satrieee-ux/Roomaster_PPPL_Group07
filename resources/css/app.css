@@ -123,3 +123,6 @@
     scrollbar-width: none;
     &::-webkit-scrollbar { display: none; }
 }
+/* Tombol/link yang diberi kelas "hidden" harus benar-benar tersembunyi. Tanpa aturan ini kelas inline-flex
+   dari <x-button> menimpa hidden, sehingga dua versi tombol (aktif dan nonaktif) tampil bersamaan. */
+button.hidden, a.hidden { display: none; }
