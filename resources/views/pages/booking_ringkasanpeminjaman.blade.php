@@ -13,6 +13,9 @@ $k = 'text-[14px] leading-5 font-medium text-grey-500';
 
   <main class="flex flex-1 flex-col px-6 pb-5 pt-5">
     <x-booking_stepper :step="3" />
+    @if($errors->any())
+      <p class="mt-4 rounded-xl bg-danger-50 px-4 py-3 text-[14px] leading-5 font-medium text-danger-500">{{ $errors->first() }}</p>
+    @endif
 
     <div class="mt-4 flex items-end justify-between">
       <h2 class="text-[24px] leading-7 font-extrabold text-grey-800">Room Details</h2>

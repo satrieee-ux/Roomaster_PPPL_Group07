@@ -9,9 +9,9 @@
      Tombol Apply (user tetap di halaman form, form TIDAK dikirim):
        - mengisi input[name=waktu_mulai] dan input[name=waktu_selesai] di form (contoh 15:00 dan 17:00)
        - menampilkan elemen [data-time-show] dan menyembunyikan elemen [data-time-hide] di form
-     TODO: jika tanggal diganti setelah jam dipilih, jam perlu di-reset dan slot terpakai diambil ulang
-           (dikerjakan nanti bersama endpoint Satrio saat Check Availability diklik). --}}
-@props(['id' => 'popup-waktu', 'room' => '—', 'dateLabel' => '—', 'booked' => [], 'selected' => [], 'open' => false])
+     slotUrl  = URL GET JSON (route booking.tanggal). Saat tanggal diganti (event "booking:tanggal" dari popup tanggal),
+                jam yang sudah dipilih direset dan daftar jam tidak tersedia diambil ulang dari server. --}}
+@props(['id' => 'popup-waktu', 'room' => '—', 'dateLabel' => '—', 'booked' => [], 'selected' => [], 'open' => false, 'slotUrl' => null])
 @php
 // Kelompok jam per sesi: [nama sesi, ikon, daftar jam]. Jam operasional 08.00 - 19.00.
 $groups = [
@@ -82,8 +82,46 @@ $groups = [
     // Ubah angka jam menjadi teks "HH:00", contoh 8 → "08:00"
     var pad = function (h) { return (h < 10 ? '0' : '') + h + ':00'; };
 
-    // Jam terpakai dari server, untuk dicek saat Apply
+    // Jam tidak tersedia dari server, untuk dicek saat Apply
     var booked = @json(array_values($booked));
+    var slotUrl = @json($slotUrl);
+    var tanggalAktif = (document.querySelector('input[name=tanggal_pakai]') || {}).value || '';
+
+    // Kelas tampilan chip jam (sama dengan yang dirender server)
+    var K_BASE = 'flex h-12 items-center justify-center rounded-full text-[16px] leading-6 font-medium ';
+    var K_BOOKED = 'bg-secondary-500 text-white';
+    var K_FREE = 'bg-grey-200 text-grey-800 peer-checked:bg-primary-900 peer-checked:text-white';
+
+    // Terapkan daftar jam tidak tersedia ke semua chip
+    function terapkan(daftar, semuaNonaktif) {
+      booked = daftar;
+      root.querySelectorAll('input[data-hour]').forEach(function (i) {
+        var h = +i.dataset.hour;
+        var b = semuaNonaktif || daftar.indexOf(h) !== -1;
+        i.disabled = b;
+        if (b) i.checked = false;
+        i.parentElement.className = 'block ' + (b ? 'cursor-not-allowed' : 'cursor-pointer');
+        i.nextElementSibling.className = K_BASE + (b ? K_BOOKED : K_FREE);
+      });
+    }
+
+    // Tanggal diganti di popup tanggal: kosongkan pilihan jam, kembalikan bar Check Availability, ambil slot baru
+    document.addEventListener('booking:tanggal', function (e) {
+      var tgl = e.detail;
+      if (!tgl || tgl === tanggalAktif) return;
+      tanggalAktif = tgl;
+
+      document.querySelectorAll('input[name=waktu_mulai], input[name=waktu_selesai]').forEach(function (i) { i.value = ''; });
+      document.querySelectorAll('[data-time-show]').forEach(function (el) { el.classList.add('hidden'); });
+      document.querySelectorAll('[data-time-hide]').forEach(function (el) { el.classList.remove('hidden'); });
+
+      if (!slotUrl) return;
+      terapkan(booked, true);   // nonaktifkan semua sampai data baru datang
+      fetch(slotUrl + '?tanggal=' + encodeURIComponent(tgl), { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) { terapkan(d.booked || [], false); })
+        .catch(function () { terapkan([], false); });   // gagal ambil: server tetap memvalidasi saat Continue
+    });
 
     root.querySelector('[data-time-apply]').addEventListener('click', function () {
       // Kumpulkan jam yang dicentang, contoh [15, 16]

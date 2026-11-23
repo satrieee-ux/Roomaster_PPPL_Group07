@@ -30,7 +30,7 @@
   'tanggal_pakai' => null,            // peminjaman.tanggal_pakai (DATE, format Y-m-d)
   'waktu_mulai' => null,              // peminjaman.waktu_mulai (TIME, misal "15:00" atau "15:00:00")
   'waktu_selesai' => null,            // peminjaman.waktu_selesai (TIME)
-  'jam_terpakai' => [],               // jam (8-19) terpakai dari server: peminjaman 'disetujui'/'berlangsung' di ruangan + tanggal ini
+  'jam_terpakai' => [],               // jam (8-19) tidak tersedia dari server: terpakai ('disetujui'/'berlangsung') atau sudah lewat
 ])
 @php
 // Setelah validasi gagal, isian terakhir user (old) menang atas data draft
@@ -77,10 +77,9 @@ $merah = 'border-danger-500!'; // bingkai merah saat kolom punya error
 
   {{-- Tombol Continue (setelah jam dipilih) mengirim form dengan POST ke /booking/{id_ruangan}.
        Controller menyimpan baris peminjaman berstatus 'draft', lalu redirect ke GET /booking/{id}/dokumen.
-       Halaman pilih jam terpisah tidak dipakai.
-       TODO: ganti ke route('booking.store', $id_ruangan) setelah route POST /booking/{id} dibuat di routes/web.php. --}}
+       Halaman pilih jam terpisah tidak dipakai.--}}
   <form id="booking-form" method="POST" class="flex flex-1 flex-col" novalidate
-        action="{{ url('/booking/'.$id_ruangan) }}">
+        action="{{ route('booking.store', $id_ruangan) }}">
     @csrf
     <main class="flex flex-1 flex-col px-6 pb-5 pt-[22px]">
       <h2 class="text-[24px] leading-7 font-extrabold text-grey-800">Details</h2>
@@ -150,7 +149,8 @@ $merah = 'border-danger-500!'; // bingkai merah saat kolom punya error
 
   {{-- Popup pendukung form --}}
   <x-popup_booking_pilihtanggal_peminjaman :value="$tanggalIso" />
-  <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :booked="$jam_terpakai" :selected="$jamTerpilih" />
+  <x-popup_booking_pilihwaktu_peminjaman :room="$kode_ruangan" :dateLabel="$tanggalPanjang" :booked="$jam_terpakai" :selected="$jamTerpilih"
+                                         :slotUrl="route('booking.tanggal', $id_ruangan)" />
   <x-popup_cancelbooking :open="false" :yesUrl="route('rooms.detail', $id_ruangan)" />
 </div>
 

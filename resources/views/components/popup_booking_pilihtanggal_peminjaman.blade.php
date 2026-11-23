@@ -22,7 +22,8 @@
 @endonce
 
 <x-popup :id="$id" :open="$open" :sheet="true">
-  <div data-cal data-value="{{ $value }}" class="pb-2">
+  {{-- data-today = tanggal hari ini menurut server (zona waktu aplikasi); tanggal sebelumnya tidak bisa dipilih --}}
+  <div data-cal data-value="{{ $value }}" data-today="{{ now()->toDateString() }}" class="pb-2">
     {{-- Judul popup + tombol tutup --}}
     <div class="relative flex items-center justify-center border-b border-grey-200 pb-3">
       <x-icon name="calendar" :size="24" class="absolute left-0 text-primary-500" />
@@ -68,7 +69,9 @@
     function iso(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
 
     // sel = tanggal terpilih (teks Y-m-d). Kalender dibuka di bulan tanggal itu, atau bulan ini.
+    var today = box.dataset.today || iso(new Date());
     var sel = box.dataset.value || '';
+    if (sel && sel < today) sel = '';   // tanggal lampau (misal dari draft lama) tidak dipakai
     var base = sel ? new Date(sel + 'T00:00:00') : new Date();
     var y = base.getFullYear();
     var m = base.getMonth(); // 0 = Januari
@@ -88,18 +91,19 @@
         var inMonth = d >= 1 && d <= days;         // apakah termasuk bulan ini
         var n = inMonth ? d : (d < 1 ? prev + d : d - days); // angka yang ditampilkan
         var v = iso(new Date(y, m, d));
-        var on = inMonth && v === sel;             // apakah tanggal ini yang dipilih
+        var on = inMonth && v === sel;
+        var lewat = inMonth && v < today;          // tanggal sebelum hari ini: dinonaktifkan           // apakah tanggal ini yang dipilih
 
         var b = document.createElement('button');
         var s = document.createElement('span');
         b.type = 'button';
         b.className = 'flex h-[34px] items-center justify-center';
         s.className = 'flex size-8 items-center justify-center rounded-full text-[14px] leading-5 font-medium ' +
-          (on ? 'bg-primary-900 text-white' : (inMonth ? 'text-grey-800' : 'text-grey-400'));
+          (on ? 'bg-primary-900 text-white' : (lewat ? 'text-grey-300 line-through' : (inMonth ? 'text-grey-800' : 'text-grey-400')));
         s.textContent = n;
         b.appendChild(s);
 
-        if (inMonth) {
+        if (inMonth && !lewat) {
           // Klik tanggal → simpan sebagai pilihan, lalu gambar ulang
           b.addEventListener('click', (function (val) {
             return function () { sel = val; render(); };
@@ -146,8 +150,11 @@
       document.querySelectorAll('[data-ca-on]').forEach(function (b) { b.classList.remove('hidden'); });
       document.querySelectorAll('[data-ca-off]').forEach(function (b) { b.classList.add('hidden'); });
 
-      // 5. Tutup popup
-      root.classList.add('hidden');
+      // 5. Beri tahu popup jam: tanggal berubah, jam perlu direset dan slot terpakai diambil ulang
+      document.dispatchEvent(new CustomEvent('booking:tanggal', { detail: sel }));
+
+      // 6. Tutup popup
+       root.classList.add('hidden');
     });
 
     render();

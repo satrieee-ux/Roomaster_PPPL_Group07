@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/booking/{id}', [PeminjamanController::class, 'isiFormulir'])->whereNumber('id')->name('booking.form');        // [tambahan]
     Route::get('/booking/{id}/tanggal', [PeminjamanController::class, 'cekKetersediaan'])->whereNumber('id')->name('booking.tanggal');
     Route::post('/booking/{id}', [PeminjamanController::class, 'simpanDraft'])->whereNumber('id')->name('booking.store');   // [tambahan] simpan draft
+    Route::post('/booking/{id}/timpa', [PeminjamanController::class, 'timpaDraft'])->whereNumber('id')->name('booking.timpa'); // [tambahan] buang draft lama, mulai baru
 
     // UC-09 dan UC-10 (Thoriq): dokumen pendukung
     Route::get('/booking/{id}/dokumen', [PeminjamanController::class, 'halamanDokumen'])->whereNumber('id')->name('booking.dokumen');            // [tambahan]
