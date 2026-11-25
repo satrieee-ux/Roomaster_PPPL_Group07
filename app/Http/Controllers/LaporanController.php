@@ -41,7 +41,7 @@ class LaporanController extends Controller
         // Simulasi hasil scan: pakai kode ruangan pertama di data dummy
         $kodeDemo = DB::table('data_ruangan')->orderBy('id')->value('kode_ruangan');
 
-        return view('pages.Qreporting', compact('kodeDemo'));
+        return view('pages.laporan.Qreporting', compact('kodeDemo'));
     }
 
     // UC-19: form laporan. ?kode=SI-4202 (hasil scan) | ?draft=ID (lanjut draft)
@@ -77,7 +77,7 @@ class LaporanController extends Controller
             ['value' => 'furnitur',     'label' => 'Desk/Seating',     'icon' => 'armchair'],
         ];
 
-        return view('pages.laporkerusakan', compact('location', 'categories', 'draft'));
+        return view('pages.laporan.laporkerusakan', compact('location', 'categories', 'draft'));
     }
 
     // UC-19: simpan laporan. aksi=draft -> status draft, aksi=kirim -> status pending
@@ -153,7 +153,7 @@ class LaporanController extends Controller
 
         $kode = str_pad($laporan->id, 6, '0', STR_PAD_LEFT);   // guide 3.1
 
-        return view('pages.laporkerusakan_submitted', compact('laporan', 'kode'));
+        return view('pages.laporan.laporkerusakan_submitted', compact('laporan', 'kode'));
     }
 
     // UC-20: ringkasan satu laporan
@@ -189,7 +189,7 @@ class LaporanController extends Controller
             'evidence'    => $evidence,
         ];
 
-        return view('pages.ringkasanlaporan', compact('report'));
+        return view('pages.laporan.ringkasanlaporan', compact('report'));
     }
 
     // UC-20: riwayat laporan milik user. ?filter=pending|diproses|selesai
@@ -213,6 +213,6 @@ class LaporanController extends Controller
 
         $active = ['pending' => 'Pending', 'diproses' => 'In Progress', 'selesai' => 'Resolved'][$filter] ?? 'All';
 
-        return view('pages.riwayatlaporan', compact('reports', 'active'));
+        return view('pages.laporan.riwayatlaporan', compact('reports', 'active'));
     }
 }

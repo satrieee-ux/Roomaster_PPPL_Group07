@@ -31,7 +31,7 @@ class RuanganController extends Controller
     // Tab All: ruangan paling sering dipinjam + semua ruangan
     public function index()
     {
-        return view('pages.rooms', [
+        return view('pages.rooms.rooms', [
             'sering'  => Ruangan::tandaiFavorit($this->palingSeringDipinjam(6)),
             'ruangan' => Ruangan::tandaiFavorit(Ruangan::orderBy('kode_ruangan')->get()),
         ]);
@@ -40,13 +40,13 @@ class RuanganController extends Controller
     // Tab SKPB: data_ruangan.kategori = 'skpb'
     public function filterBySkpb()
     {
-        return view('pages.rooms_skpb', $this->dataKategori('skpb'));
+        return view('pages.rooms.rooms_skpb', $this->dataKategori('skpb'));
     }
 
     // Tab Departemen: data_ruangan.kategori = 'departemen'
     public function filterByDepartemen()
     {
-        return view('pages.rooms_departemen', $this->dataKategori('departemen'));
+        return view('pages.rooms.rooms_departemen', $this->dataKategori('departemen'));
     }
 
     // Tab Favorites: ruangan_favorit milik mahasiswa yang login
@@ -54,7 +54,7 @@ class RuanganController extends Controller
     {
         $favorit = Auth::user()->mahasiswa->favorit()->orderBy('kode_ruangan')->get();
 
-        return view('pages.rooms_fav', ['favorit' => Ruangan::tandaiFavorit($favorit)]);
+        return view('pages.rooms.rooms_fav', ['favorit' => Ruangan::tandaiFavorit($favorit)]);
     }
 
     // Detail ruangan (tab About)
@@ -70,7 +70,7 @@ class RuanganController extends Controller
         // "Now Available": 1 = tidak ada peminjaman disetujui/berlangsung saat ini
         $tersedia = DB::table('v_ketersediaan_ruangan')->where('id_ruangan', $id)->value('tersedia_sekarang');
 
-        return view('pages.room_detail', [
+        return view('pages.rooms.room_detail', [
             'ruangan'      => $ruangan,
             'rataRating'   => $rataRating,
             'jumlahUlasan' => $jumlahUlasan,
@@ -86,7 +86,7 @@ class RuanganController extends Controller
         $ulasan = DB::table('v_ulasan_ruangan')->where('id_ruangan', $idRuangan);
         $tersedia = DB::table('v_ketersediaan_ruangan')->where('id_ruangan', $idRuangan)->value('tersedia_sekarang');
 
-        return view('pages.room_reviews', [
+        return view('pages.rooms.room_reviews', [
             'ruangan'      => $ruangan,
             // Top Reviews: rating tertinggi, lalu yang terbaru, ambil 3
             'topUlasan'    => (clone $ulasan)->orderByDesc('rating')->orderByDesc('tanggal_ulasan')->limit(3)->get(),
@@ -116,7 +116,7 @@ class RuanganController extends Controller
     {
         $idMahasiswa = Auth::user()->mahasiswa->id;
 
-        return view('pages.melakukan_search', [
+        return view('pages.search.melakukan_search', [
             // "Recently Searched" tidak punya tabel, diganti ruangan yang terakhir dipinjam
             'terakhir'  => Ruangan::tandaiFavorit(Ruangan::terakhirDipinjam($idMahasiswa, 5)),
             'untukAnda' => Ruangan::tandaiFavorit(Ruangan::rekomendasi()->take(4)->get()),
@@ -201,7 +201,7 @@ class RuanganController extends Controller
         // "More For You": rekomendasi yang tidak ada di hasil
         $lainnya = Ruangan::rekomendasi()->whereNotIn('data_ruangan.id', $hasil->pluck('id'))->take(4)->get();
 
-        return view('pages.melihat_hasil_search', [
+        return view('pages.search.melihat_hasil_search', [
             'hasil'     => Ruangan::tandaiFavorit($hasil),
             'lainnya'   => Ruangan::tandaiFavorit($lainnya),
             'fasilitas' => Fasilitas::orderBy('nama_fasilitas')->get(),

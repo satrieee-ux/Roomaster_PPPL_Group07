@@ -74,7 +74,7 @@ class PeminjamanController extends Controller
                 : route('checkin', $b->id),
         ])->all();
 
-        return view('pages.daftar_bookings', [
+        return view('pages.booking.daftar_bookings', [
             'bookings'  => $bookings,
             'activeTab' => isset(self::KATEGORI_STATUS[$kategori]) ? $kategori : 'all',
         ]);
@@ -200,7 +200,7 @@ class PeminjamanController extends Controller
             $selesai = substr($draft->waktu_selesai, 0, 5);
         }
 
-        return view('pages.booking_isiformulir_peminjaman', [
+        return view('pages.booking.booking_isiformulir_peminjaman', [
             'ruangan'       => $ruangan,
             'peminjaman'    => $lanjut ? $draft : null,
             'draftAda'      => $draft !== null && ! $lanjut,
@@ -224,7 +224,7 @@ class PeminjamanController extends Controller
             return response()->json(['tanggal' => $tanggal, 'booked' => $jam]);
         }
 
-        return view('pages.booking_pilihtanggal_peminjaman', [
+        return view('pages.booking.booking_pilihtanggal_peminjaman', [
             'ruangan'       => $ruangan,
             'peminjaman'    => $this->draftSaya($id),
             'tanggal_pakai' => $tanggal,
@@ -298,7 +298,7 @@ class PeminjamanController extends Controller
             return redirect()->route('booking.form', $id);
         }
 
-        return view('pages.booking_melampirkan_dokumenpendukung', $this->dataDokumen($ruangan, $draft));
+        return view('pages.booking.booking_melampirkan_dokumenpendukung', $this->dataDokumen($ruangan, $draft));
     }
 
     // UC-09 (Thoriq): simpan berkas. Slot yang tidak diisi memakai dokumen lama. Jenis sama = ganti file lama.
@@ -362,7 +362,7 @@ class PeminjamanController extends Controller
             return redirect()->route('booking.form', $id);
         }
 
-        return view('pages.booking_berkasterunggah', $this->dataDokumen($ruangan, $draft));
+        return view('pages.booking.booking_berkasterunggah', $this->dataDokumen($ruangan, $draft));
     }
 
     // UC-10 (Thoriq): hapus satu dokumen (baris database dan filenya), lalu muat ulang halaman.
@@ -401,7 +401,7 @@ class PeminjamanController extends Controller
                 ->withErrors(['surat_kegiatan' => 'Lengkapi dokumen KTM/KTP dan Surat Peminjaman terlebih dulu.']);
         }
 
-        return view('pages.booking_ringkasanpeminjaman', [
+        return view('pages.booking.booking_ringkasanpeminjaman', [
             'id'      => $id,
             'booking' => [
                 'code'          => str_pad($draft->id, 6, '0', STR_PAD_LEFT),
@@ -470,7 +470,7 @@ class PeminjamanController extends Controller
             ->where('status', '<>', 'draft')
             ->firstOrFail();
 
-        return view('pages.booking_berhasil', ['id' => $p->id]);
+        return view('pages.booking.booking_berhasil', ['id' => $p->id]);
     }
 
     // UC-12 Check-In (Thoriq) dan UC-13 Check-Out (Thalia)

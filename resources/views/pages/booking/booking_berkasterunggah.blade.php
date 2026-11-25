@@ -9,7 +9,7 @@
        $dokumen    = dokumen yang sudah ada untuk booking ini, dikelompokkan per jenis:
                      $peminjaman->dokumen->keyBy('jenis_dokumen')
      Form hapus mengirim (DELETE): id_peminjaman, jenis_dokumen ('ktm_ktp' atau 'surat_kegiatan'). --}}
-@extends('pages.booking_melampirkan_dokumenpendukung')
+@extends('pages.booking.booking_melampirkan_dokumenpendukung')
 
 @section('content')
   {{-- Seluruh isi halaman UC-09 (header, stepper, slot dokumen, tombol Continue) --}}
