@@ -49,6 +49,6 @@ class NotifikasiController extends Controller
         // Label tab harus sama persis dengan label di notifikasi.blade.php
         $active = $filter ? self::KATEGORI[$filter][0] : 'All';
 
-        return view('pages.notifikasi', compact('notifications', 'active'));
+        return view('pages.inbox.notifikasi', compact('notifications', 'active'));
     }
 }

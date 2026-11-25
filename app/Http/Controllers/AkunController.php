@@ -31,7 +31,7 @@ class AkunController extends Controller
     // [tambahan] Halaman intro (UC-01 tidak punya sequence diagram)
     public function splash()
     {
-        return view('pages.splash');
+        return view('pages.auth.splash');
     }
 
     // ---------------------------------------------------------------
@@ -39,7 +39,7 @@ class AkunController extends Controller
     // ---------------------------------------------------------------
     public function showLogin()
     {
-        return view('pages.login');
+        return view('pages.auth.login');
     }
 
     // [tambahan] Login testing tanpa MyITS
@@ -69,7 +69,7 @@ class AkunController extends Controller
     // ---------------------------------------------------------------
     public function showSignup()
     {
-        return view('pages.signup');
+        return view('pages.auth.signup');
     }
 
     // UC-01 (Satya): Sign Up. Validasi, simpan ke mahasiswa_its dan profil_pengguna, lalu langsung login.
@@ -112,13 +112,13 @@ class AkunController extends Controller
     // Arahkan ke halaman login MyITS (halaman Sign In Options, tanpa data akun)
     public function redirectToMyITS()
     {
-        return view('pages.pilih_akun_its');
+        return view('pages.auth.pilih_akun_its');
     }
 
     // [tambahan] Halaman email MyITS (kolom email kosong)
     public function showEmailITS()
     {
-        return view('pages.email_its');
+        return view('pages.auth.email_its');
     }
 
     // [tambahan] Halaman password MyITS. Email dicek dulu: harus ada di mahasiswa_its.
@@ -131,7 +131,7 @@ class AkunController extends Controller
                 ->withErrors(['email' => 'Email ITS tidak terdaftar.'])->withInput();
         }
 
-        return view('pages.password_its', ['email' => $data['email']]);
+        return view('pages.auth.password_its', ['email' => $data['email']]);
     }
 
     // Verifikasi akun mahasiswa ITS: cocokkan email_its (tidak menyimpan password),
@@ -174,7 +174,7 @@ class AkunController extends Controller
     {
         $mahasiswa = Auth::user()->mahasiswa;
 
-        return view('pages.menu_utama', [
+        return view('pages.rooms.menu_utama', [
             'upcoming'    => $this->bookingTerdekat($mahasiswa->id),
             'terakhir'    => Ruangan::tandaiFavorit(Ruangan::terakhirDipinjam($mahasiswa->id, 5)),
             'rekomendasi' => Ruangan::tandaiFavorit(Ruangan::rekomendasi()->take(4)->get()),
